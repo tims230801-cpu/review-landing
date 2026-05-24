@@ -7,1063 +7,556 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
-<!-- META PIXEL: 여기에 Meta 픽셀 코드 삽입 -->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '967349412754049');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=967349412754049&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <!-- GOOGLE ADS TAG: 여기에 Google 전환 태그 삽입 -->
 
 <style>
-:root {
-  --black: #000;
-  --white: #fff;
-  --mint: #00d4aa;
-  --mint-dim: #00b890;
-  --gray-1: #111;
-  --gray-2: #1a1a1a;
-  --gray-3: #2a2a2a;
-  --gray-4: #666;
-  --gray-5: #999;
-  --gray-6: #f5f5f7;
-  --text-primary: #fff;
-  --text-secondary: #a1a1a6;
-  --radius-sm: 12px;
-  --radius-md: 20px;
-  --radius-lg: 32px;
-  --radius-xl: 48px;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Noto Sans KR', sans-serif;
-  background: var(--black);
-  color: var(--text-primary);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:#000;color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
 /* NAV */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  height: 64px;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 0.5px solid rgba(255,255,255,0.08);
-}
-.nav-logo {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: -0.5px;
-}
-.nav-logo span { color: var(--mint); }
-.nav-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--mint);
-  color: #000;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 8px 18px;
-  border-radius: 100px;
-  text-decoration: none;
-  transition: background 0.2s;
-}
-.nav-cta:hover { background: var(--mint-dim); }
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:rgba(0,0,0,0.85);backdrop-filter:blur(20px);border-bottom:0.5px solid rgba(255,255,255,0.08)}
+.nav-logo{font-size:18px;font-weight:900;color:#fff;letter-spacing:-0.5px}
+.nav-logo span{color:#00d4aa}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;background:#FEE500;color:#000;font-size:13px;font-weight:800;padding:9px 20px;border-radius:100px;text-decoration:none;transition:all 0.2s}
+.nav-cta:hover{background:#f0d800;transform:translateY(-1px)}
 
 /* HERO */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 140px 24px 100px;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -200px; left: 50%;
-  transform: translateX(-50%);
-  width: 800px; height: 800px;
-  background: radial-gradient(circle, rgba(0,212,170,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--mint);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 32px;
-  padding: 6px 16px;
-  border: 1px solid rgba(0,212,170,0.3);
-  border-radius: 100px;
-}
-.hero-eyebrow::before {
-  content: '';
-  width: 6px; height: 6px;
-  background: var(--mint);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%,100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
-.hero h1 {
-  font-size: clamp(52px, 8vw, 96px);
-  font-weight: 300;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  color: var(--white);
-  margin-bottom: 28px;
-  max-width: 900px;
-}
-.hero h1 strong {
-  font-weight: 700;
-  background: linear-gradient(135deg, #fff 0%, var(--mint) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.hero-sub {
-  font-size: clamp(17px, 2.5vw, 21px);
-  font-weight: 300;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 48px;
-  max-width: 560px;
-}
-.hero-btns {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 16px;
-}
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--mint);
-  color: #000;
-  font-size: 15px;
-  font-weight: 700;
-  padding: 16px 32px;
-  border-radius: 100px;
-  text-decoration: none;
-  transition: all 0.2s;
-  border: none;
-  cursor: pointer;
-}
-.btn-primary:hover {
-  background: var(--mint-dim);
-  transform: translateY(-1px);
-}
-.btn-kakao {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #FEE500;
-  color: #000;
-  font-size: 15px;
-  font-weight: 700;
-  padding: 16px 32px;
-  border-radius: 100px;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-.btn-kakao:hover {
-  background: #f0d800;
-  transform: translateY(-1px);
-}
-.kakao-icon {
-  width: 20px; height: 20px;
-  background: #000;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 900; color: #FEE500;
-}
-.hero-note {
-  font-size: 13px;
-  color: var(--gray-4);
-  margin-bottom: 80px;
-}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px;padding:120px 80px 80px;position:relative;overflow:hidden;background:#000}
+.hero::before{content:'';position:absolute;top:-300px;left:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(0,212,170,0.06) 0%,transparent 70%);pointer-events:none}
+.hero-left{position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#00d4aa;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:28px;padding:6px 16px;border:1px solid rgba(0,212,170,0.3);border-radius:100px}
+.hero-eyebrow::before{content:'';width:6px;height:6px;background:#00d4aa;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.hero h1{font-size:clamp(48px,5.5vw,80px);font-weight:900;line-height:1.08;letter-spacing:-0.04em;color:#fff;margin-bottom:24px}
+.hero h1 .accent{color:#00d4aa}
+.hero-sub{font-size:17px;font-weight:400;color:#a1a1a6;line-height:1.7;margin-bottom:40px;max-width:480px}
+.hero-sub strong{color:#fff}
+.hero-btns{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+.btn-kakao{display:inline-flex;align-items:center;gap:8px;background:#FEE500;color:#000;font-size:15px;font-weight:800;padding:16px 28px;border-radius:100px;text-decoration:none;transition:all 0.2s}
+.btn-kakao:hover{background:#f0d800;transform:translateY(-1px)}
+.kakao-badge{width:22px;height:22px;background:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#FEE500}
+.btn-ghost{display:inline-flex;align-items:center;gap:6px;color:#fff;font-size:14px;font-weight:500;text-decoration:none;border:1px solid rgba(255,255,255,0.2);padding:15px 24px;border-radius:100px;transition:all 0.2s}
+.btn-ghost:hover{border-color:#00d4aa;color:#00d4aa}
+.hero-stats{display:flex;gap:32px}
+.stat-item{text-align:left}
+.stat-num{font-size:28px;font-weight:900;color:#00d4aa;letter-spacing:-0.03em}
+.stat-label{font-size:12px;color:#666;margin-top:2px}
 
-/* PHONE MOCKUPS HERO */
-.hero-phones {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 24px;
-  margin-top: 0;
-}
-.hero-phones svg { filter: drop-shadow(0 40px 80px rgba(0,212,170,0.15)); }
-
-/* SECTION BASE */
-section {
-  padding: 120px 24px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-section.full-width { max-width: none; padding-left: 0; padding-right: 0; }
-
-.eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--mint);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.section-title {
-  font-size: clamp(36px, 5vw, 60px);
-  font-weight: 300;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  color: var(--white);
-  margin-bottom: 20px;
-}
-.section-sub {
-  font-size: 17px;
-  font-weight: 300;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  max-width: 520px;
-  margin-bottom: 64px;
-}
+/* HERO PHONE */
+.hero-right{position:relative;display:flex;justify-content:center;align-items:center}
+.phone-float{animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.phone-glow{position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(0,212,170,0.12) 0%,transparent 70%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
 
 /* BADGES */
-.badges-wrap {
-  background: var(--gray-1);
-  padding: 60px 24px;
-  text-align: center;
-  border-top: 0.5px solid rgba(255,255,255,0.06);
-  border-bottom: 0.5px solid rgba(255,255,255,0.06);
-}
-.badges-label {
-  font-size: 12px;
-  color: var(--gray-4);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 24px;
-}
-.badges-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.badge {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--gray-5);
-  padding: 8px 20px;
-  border: 0.5px solid rgba(255,255,255,0.12);
-  border-radius: 100px;
-  transition: all 0.2s;
-}
-.badge:hover { border-color: var(--mint); color: var(--mint); }
+.badges-wrap{background:#0a0a0a;padding:40px 80px;border-top:0.5px solid rgba(255,255,255,0.06);border-bottom:0.5px solid rgba(255,255,255,0.06)}
+.badges-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:center}
+.badges-label{font-size:12px;color:#444;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap}
+.badges-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.badge{font-size:13px;font-weight:500;color:#666;padding:7px 18px;border:0.5px solid rgba(255,255,255,0.1);border-radius:100px;transition:all 0.2s}
+.badge:hover{border-color:#00d4aa;color:#00d4aa}
 
 /* PROBLEM */
-.problem-section { background: var(--black); }
-.problem-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-.problem-card {
-  background: var(--gray-1);
-  border: 0.5px solid rgba(255,255,255,0.06);
-  border-radius: var(--radius-md);
-  padding: 40px 36px;
-  transition: all 0.3s;
-}
-.problem-card:hover {
-  border-color: rgba(0,212,170,0.2);
-  transform: translateY(-4px);
-}
-.problem-num {
-  font-size: 48px;
-  font-weight: 900;
-  color: rgba(0,212,170,0.15);
-  line-height: 1;
-  margin-bottom: 20px;
-  font-variant-numeric: tabular-nums;
-}
-.problem-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--white);
-  margin-bottom: 12px;
-  line-height: 1.3;
-}
-.problem-desc {
-  font-size: 14px;
-  font-weight: 300;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
+.problem-wrap{background:#000;padding:120px 80px}
+.section-inner{max-width:1100px;margin:0 auto}
+.eyebrow{font-size:11px;font-weight:700;color:#00d4aa;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.eyebrow::before{content:'';width:24px;height:2px;background:#00d4aa;border-radius:2px}
+.section-title{font-size:clamp(36px,4.5vw,60px);font-weight:900;letter-spacing:-0.04em;line-height:1.1;color:#fff;margin-bottom:16px}
+.section-sub{font-size:16px;color:#666;line-height:1.7;margin-bottom:64px;max-width:500px}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.problem-card{background:#0d0d0d;border:0.5px solid rgba(255,255,255,0.06);border-radius:24px;padding:40px 36px;transition:all 0.3s;position:relative;overflow:hidden}
+.problem-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,212,170,0.3),transparent);opacity:0;transition:opacity 0.3s}
+.problem-card:hover{border-color:rgba(0,212,170,0.2);transform:translateY(-4px)}
+.problem-card:hover::before{opacity:1}
+.problem-num{font-size:56px;font-weight:900;color:rgba(0,212,170,0.08);line-height:1;margin-bottom:20px}
+.problem-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:12px;line-height:1.35}
+.problem-desc{font-size:14px;color:#666;line-height:1.75}
 
-/* HOW IT WORKS */
-.how-section {
-  background: var(--gray-1);
-  padding: 120px 24px;
-  border-top: 0.5px solid rgba(255,255,255,0.06);
-  border-bottom: 0.5px solid rgba(255,255,255,0.06);
-}
-.how-inner { max-width: 1200px; margin: 0 auto; }
-.how-phones {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  align-items: start;
-  margin-top: 64px;
-}
-.how-phone-wrap { text-align: center; }
-.how-step-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px; height: 32px;
-  background: var(--mint);
-  color: #000;
-  font-size: 13px;
-  font-weight: 800;
-  border-radius: 50%;
-  margin-bottom: 20px;
-}
-.how-phone-wrap svg {
-  width: 100%;
-  max-width: 220px;
-  filter: drop-shadow(0 24px 48px rgba(0,0,0,0.5));
-}
-.how-caption {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--white);
-  margin-top: 20px;
-}
-.how-caption-sub {
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--text-secondary);
-  margin-top: 6px;
-}
+/* HOW */
+.how-wrap{background:#0a0a0a;padding:120px 80px;border-top:0.5px solid rgba(255,255,255,0.06)}
+.how-phones{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;align-items:start;margin-top:72px}
+.how-phone-item{text-align:center}
+.step-badge{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:#00d4aa;color:#000;font-size:14px;font-weight:900;border-radius:50%;margin-bottom:24px}
+.how-phone-item svg{width:100%;max-width:200px;filter:drop-shadow(0 32px 64px rgba(0,212,170,0.1))}
+.how-caption{font-size:16px;font-weight:700;color:#fff;margin-top:24px}
+.how-caption-sub{font-size:13px;color:#666;margin-top:6px;line-height:1.6}
+.how-arrow{display:flex;align-items:center;justify-content:center;padding-top:160px;color:#333;font-size:24px}
 
-/* SOCIAL PROOF */
-.proof-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-.proof-card {
-  background: var(--gray-1);
-  border: 0.5px solid rgba(255,255,255,0.06);
-  border-radius: var(--radius-md);
-  padding: 40px 36px;
-  transition: all 0.3s;
-}
-.proof-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.12); }
-.proof-stars { color: #fff; font-size: 18px; margin-bottom: 20px; letter-spacing: 2px; }
-.proof-num {
-  font-size: 42px;
-  font-weight: 800;
-  color: var(--mint);
-  letter-spacing: -0.03em;
-  margin-bottom: 8px;
-}
-.proof-label {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-}
-.proof-quote {
-  font-size: 14px;
-  font-weight: 300;
-  color: var(--gray-5);
-  line-height: 1.7;
-  font-style: italic;
-  border-top: 0.5px solid rgba(255,255,255,0.06);
-  padding-top: 20px;
-}
-.proof-author {
-  font-size: 12px;
-  color: var(--gray-4);
-  margin-top: 12px;
-  font-style: normal;
-}
+/* FEATURES */
+.features-wrap{background:#000;padding:120px 80px;border-top:0.5px solid rgba(255,255,255,0.06)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:64px}
+.feature-card{background:#0d0d0d;border:0.5px solid rgba(255,255,255,0.06);border-radius:24px;padding:36px;transition:all 0.3s}
+.feature-card:hover{border-color:rgba(0,212,170,0.15);transform:translateY(-4px)}
+.feature-icon{width:48px;height:48px;background:rgba(0,212,170,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:22px}
+.feature-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:10px}
+.feature-desc{font-size:13px;color:#666;line-height:1.7}
+
+/* NUMBERS */
+.numbers-wrap{background:#00d4aa;padding:80px}
+.numbers-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center}
+.number-item .num{font-size:clamp(48px,6vw,80px);font-weight:900;color:#000;letter-spacing:-0.04em;line-height:1}
+.number-item .unit{font-size:24px;font-weight:900;color:#000}
+.number-item .label{font-size:14px;font-weight:500;color:rgba(0,0,0,0.6);margin-top:8px}
+
+/* PROOF */
+.proof-wrap{background:#000;padding:120px 80px;border-top:0.5px solid rgba(255,255,255,0.06)}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:64px}
+.proof-card{background:#0d0d0d;border:0.5px solid rgba(255,255,255,0.06);border-radius:24px;padding:40px 36px;transition:all 0.3s}
+.proof-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.1)}
+.proof-stars{font-size:20px;letter-spacing:2px;margin-bottom:20px}
+.proof-metric{font-size:44px;font-weight:900;color:#00d4aa;letter-spacing:-0.04em;margin-bottom:6px}
+.proof-metric-label{font-size:13px;color:#555;margin-bottom:24px}
+.proof-divider{height:0.5px;background:rgba(255,255,255,0.06);margin-bottom:20px}
+.proof-text{font-size:14px;color:#777;line-height:1.75;font-style:italic}
+.proof-author{font-size:12px;color:#444;margin-top:12px;font-style:normal}
 
 /* PRICING */
-.pricing-section {
-  background: var(--gray-1);
-  padding: 120px 24px;
-  border-top: 0.5px solid rgba(255,255,255,0.06);
-}
-.pricing-inner { max-width: 1200px; margin: 0 auto; }
-.pricing-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 64px;
-}
-.pricing-card {
-  background: var(--gray-2);
-  border: 0.5px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius-md);
-  padding: 48px;
-  transition: all 0.3s;
-}
-.pricing-card.featured {
-  background: var(--mint);
-  border-color: var(--mint);
-}
-.pricing-card.featured * { color: #000; }
-.pricing-badge {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 12px;
-  background: rgba(0,212,170,0.15);
-  color: var(--mint);
-  border-radius: 100px;
-  margin-bottom: 24px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.pricing-card.featured .pricing-badge {
-  background: rgba(0,0,0,0.15);
-  color: #000;
-}
-.pricing-name {
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--white);
-  margin-bottom: 8px;
-}
-.pricing-price {
-  font-size: 52px;
-  font-weight: 800;
-  color: var(--white);
-  letter-spacing: -0.04em;
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.pricing-price span {
-  font-size: 18px;
-  font-weight: 400;
-  letter-spacing: 0;
-}
-.pricing-period {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 36px;
-}
-.pricing-card.featured .pricing-period { color: rgba(0,0,0,0.6); }
-.pricing-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-bottom: 40px;
-}
-.pricing-features li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--text-secondary);
-}
-.pricing-card.featured .pricing-features li { color: rgba(0,0,0,0.8); }
-.feat-check {
-  width: 20px; height: 20px;
-  background: rgba(0,212,170,0.15);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  font-size: 11px;
-  color: var(--mint);
-}
-.pricing-card.featured .feat-check {
-  background: rgba(0,0,0,0.12);
-  color: #000;
-}
-.btn-pricing {
-  width: 100%;
-  padding: 16px;
-  border-radius: 100px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s;
-  text-decoration: none;
-  display: block;
-  text-align: center;
-}
-.btn-pricing-outline {
-  background: transparent;
-  color: var(--white);
-  border: 1px solid rgba(255,255,255,0.2);
-}
-.btn-pricing-outline:hover { border-color: var(--mint); color: var(--mint); }
-.btn-pricing-dark {
-  background: #000;
-  color: #fff;
-}
-.btn-pricing-dark:hover { background: #111; }
+.pricing-wrap{background:#0a0a0a;padding:120px 80px;border-top:0.5px solid rgba(255,255,255,0.06)}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:800px;margin:64px auto 0}
+.pricing-card{background:#111;border:0.5px solid rgba(255,255,255,0.08);border-radius:28px;padding:48px;transition:all 0.3s}
+.pricing-card.featured{background:#00d4aa;border-color:#00d4aa}
+.pricing-card.featured *{color:#000 !important}
+.p-badge{display:inline-block;font-size:11px;font-weight:700;padding:4px 12px;background:rgba(0,212,170,0.12);color:#00d4aa;border-radius:100px;margin-bottom:24px;letter-spacing:0.08em;text-transform:uppercase}
+.pricing-card.featured .p-badge{background:rgba(0,0,0,0.12);color:#000}
+.p-name{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
+.p-price{font-size:52px;font-weight:900;color:#fff;letter-spacing:-0.04em;line-height:1;margin-bottom:6px}
+.p-price span{font-size:18px;font-weight:400;letter-spacing:0}
+.p-period{font-size:13px;color:#555;margin-bottom:36px}
+.p-features{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:40px}
+.p-features li{display:flex;align-items:center;gap:10px;font-size:14px;color:#888}
+.p-check{width:20px;height:20px;background:rgba(0,212,170,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#00d4aa;flex-shrink:0}
+.pricing-card.featured .p-check{background:rgba(0,0,0,0.12);color:#000}
+.p-btn{width:100%;padding:16px;border-radius:100px;font-size:15px;font-weight:800;cursor:pointer;border:none;transition:all 0.2s;text-decoration:none;display:block;text-align:center;font-family:'Noto Sans KR',sans-serif}
+.p-btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.15)}
+.p-btn-outline:hover{border-color:#00d4aa;color:#00d4aa}
+.p-btn-dark{background:#000;color:#fff}
+.p-btn-dark:hover{background:#111}
 
-/* CTA SECTION */
-.cta-section {
-  text-align: center;
-  padding: 140px 24px;
-  position: relative;
-  overflow: hidden;
-}
-.cta-section::before {
-  content: '';
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(0,212,170,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-.cta-title {
-  font-size: clamp(42px, 6vw, 80px);
-  font-weight: 300;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  margin-bottom: 24px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.cta-sub {
-  font-size: 17px;
-  color: var(--text-secondary);
-  margin-bottom: 48px;
-}
-.cta-btns {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.btn-kakao-large {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: #FEE500;
-  color: #000;
-  font-size: 17px;
-  font-weight: 800;
-  padding: 20px 40px;
-  border-radius: 100px;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-.btn-kakao-large:hover {
-  background: #f0d800;
-  transform: translateY(-2px);
-}
-.kakao-icon-lg {
-  width: 26px; height: 26px;
-  background: #000;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; font-weight: 900; color: #FEE500;
-}
-.cta-note {
-  font-size: 13px;
-  color: var(--gray-4);
-  margin-top: 20px;
-}
+/* CTA */
+.cta-wrap{background:#000;padding:140px 80px;text-align:center;position:relative;overflow:hidden;border-top:0.5px solid rgba(255,255,255,0.06)}
+.cta-wrap::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,170,0.05) 0%,transparent 70%);pointer-events:none}
+.cta-title{font-size:clamp(40px,6vw,80px);font-weight:900;letter-spacing:-0.04em;line-height:1.05;margin-bottom:20px;max-width:800px;margin-left:auto;margin-right:auto}
+.cta-sub{font-size:16px;color:#666;margin-bottom:48px}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+.btn-kakao-xl{display:inline-flex;align-items:center;gap:10px;background:#FEE500;color:#000;font-size:18px;font-weight:900;padding:20px 40px;border-radius:100px;text-decoration:none;transition:all 0.2s}
+.btn-kakao-xl:hover{background:#f0d800;transform:translateY(-2px)}
+.kakao-badge-xl{width:28px;height:28px;background:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#FEE500}
+.cta-note{font-size:13px;color:#333;margin-top:20px}
 
-/* FORM SECTION */
-.form-section-wrap {
-  background: var(--gray-1);
-  border-top: 0.5px solid rgba(255,255,255,0.06);
-}
-.form-section {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 120px 24px;
-  text-align: center;
-}
-.form-card {
-  background: var(--gray-2);
-  border: 0.5px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius-lg);
-  padding: 56px 48px;
-  text-align: left;
-  margin-top: 48px;
-}
-.form-group { margin-bottom: 20px; }
-.form-label {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--gray-5);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-.form-input, .form-select {
-  width: 100%;
-  background: rgba(255,255,255,0.04);
-  border: 0.5px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius-sm);
-  padding: 14px 18px;
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--white);
-  font-family: 'Noto Sans KR', sans-serif;
-  transition: border-color 0.2s;
-  outline: none;
-  appearance: none;
-}
-.form-input::placeholder { color: var(--gray-4); }
-.form-input:focus, .form-select:focus { border-color: var(--mint); }
-.form-input.error { border-color: #ff4d4f; }
-.form-select { cursor: pointer; }
-.form-select option { background: var(--gray-2); }
-.btn-submit {
-  width: 100%;
-  padding: 18px;
-  background: var(--mint);
-  color: #000;
-  font-size: 16px;
-  font-weight: 800;
-  border: none;
-  border-radius: 100px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: 'Noto Sans KR', sans-serif;
-  margin-top: 8px;
-}
-.btn-submit:hover { background: var(--mint-dim); transform: translateY(-1px); }
-.form-success {
-  display: none;
-  text-align: center;
-  padding: 40px 0;
-}
-.form-success-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
-}
-.form-success-title {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.form-success-sub {
-  font-size: 14px;
-  color: var(--text-secondary);
-}
+/* FORM */
+.form-wrap{background:#0a0a0a;border-top:0.5px solid rgba(255,255,255,0.06);padding:120px 80px}
+.form-inner{max-width:600px;margin:0 auto;text-align:center}
+.form-card{background:#111;border:0.5px solid rgba(255,255,255,0.08);border-radius:32px;padding:56px 48px;text-align:left;margin-top:48px}
+.f-group{margin-bottom:20px}
+.f-label{display:block;font-size:12px;font-weight:700;color:#555;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px}
+.f-input,.f-select{width:100%;background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px 18px;font-size:15px;color:#fff;font-family:'Noto Sans KR',sans-serif;transition:border-color 0.2s;outline:none;appearance:none}
+.f-input::placeholder{color:#333}
+.f-input:focus,.f-select:focus{border-color:#00d4aa}
+.f-input.error{border-color:#ff4d4f}
+.f-select{cursor:pointer}
+.f-select option{background:#111}
+.f-submit{width:100%;padding:18px;background:#00d4aa;color:#000;font-size:16px;font-weight:900;border:none;border-radius:100px;cursor:pointer;transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;margin-top:8px}
+.f-submit:hover{background:#00b890;transform:translateY(-1px)}
+.form-success{display:none;text-align:center;padding:40px 0}
+.success-icon{font-size:52px;margin-bottom:16px}
+.success-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px}
+.success-sub{font-size:14px;color:#666;line-height:1.7}
 
 /* FOOTER */
-footer {
-  background: var(--black);
-  border-top: 0.5px solid rgba(255,255,255,0.06);
-  padding: 48px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-.footer-logo {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--white);
-}
-.footer-logo span { color: var(--mint); }
-.footer-links {
-  display: flex;
-  gap: 24px;
-}
-.footer-links a {
-  font-size: 13px;
-  color: var(--gray-4);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-links a:hover { color: var(--white); }
-.footer-copy {
-  font-size: 12px;
-  color: var(--gray-4);
-}
+footer{background:#000;border-top:0.5px solid rgba(255,255,255,0.06);padding:48px 80px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-logo{font-size:16px;font-weight:900;color:#fff}
+.footer-logo span{color:#00d4aa}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:#444;text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:12px;color:#333}
 
-/* REVEAL ANIMATION */
-.reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.reveal.visible { opacity: 1; transform: none; }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.75s ease,transform 0.75s ease}
+.reveal.visible{opacity:1;transform:none}
+.d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  nav { padding: 0 20px; }
-  .problem-grid, .proof-grid, .pricing-grid, .how-phones { grid-template-columns: 1fr; }
-  .hero-phones svg { max-width: 200px; }
-  .form-card { padding: 36px 24px; }
-  footer { flex-direction: column; text-align: center; }
-  .footer-links { justify-content: center; }
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .hero{grid-template-columns:1fr;padding:100px 24px 60px;text-align:center}
+  .hero-right{display:none}
+  .hero-stats{justify-content:center}
+  .badges-wrap,.problem-wrap,.how-wrap,.features-wrap,.proof-wrap,.pricing-wrap,.cta-wrap,.form-wrap,.numbers-wrap{padding:80px 24px}
+  .problem-grid,.how-phones,.features-grid,.proof-grid,.pricing-grid,.numbers-inner{grid-template-columns:1fr}
+  .how-arrow{display:none}
+  footer{flex-direction:column;text-align:center;padding:40px 24px}
+  .footer-links{justify-content:center}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">AI <span>리뷰</span></div>
   <a href="https://open.kakao.com/o/sfMQWowi" class="nav-cta" target="_blank">
-    카카오톡 문의
+    <div class="kakao-badge">K</div> 카카오톡 문의
   </a>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-eyebrow">AI 리뷰 자동화</div>
-  <h1>리뷰 요청,<br>이제 <strong>QR 하나로.</strong></h1>
-  <p class="hero-sub">고객이 QR을 찍으면 AI가 리뷰를 써드립니다.<br>사장님은 아무것도 안 해도 됩니다.</p>
-  <div class="hero-btns">
-    <a href="https://open.kakao.com/o/sfMQWowi" class="btn-kakao" target="_blank">
-      <div class="kakao-icon">K</div>
-      카카오톡으로 문의하기
-    </a>
-    <a href="#form" class="btn-primary">무료 체험 신청</a>
+  <div class="hero-left">
+    <div class="hero-eyebrow">AI 리뷰 자동화</div>
+    <h1>리뷰가 쌓이면<br>매출이 <span class="accent">따라옵니다.</span></h1>
+    <p class="hero-sub">고객이 QR을 찍으면 <strong>AI가 리뷰를 써드립니다.</strong><br>말 꺼내기 불편했던 그 순간, 이제 QR 하나로 해결하세요.</p>
+    <div class="hero-btns">
+      <a href="https://open.kakao.com/o/sfMQWowi" class="btn-kakao" target="_blank">
+        <div class="kakao-badge">K</div> 카카오톡으로 문의하기
+      </a>
+      <a href="#form" class="btn-ghost">무료 체험 신청 →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">14일</div><div class="stat-label">무료 체험</div></div>
+      <div class="stat-item"><div class="stat-num">5분</div><div class="stat-label">설치 시간</div></div>
+      <div class="stat-item"><div class="stat-num">0원</div><div class="stat-label">앱 설치 비용</div></div>
+    </div>
   </div>
-  <p class="hero-note">14일 무료 · 카드 불필요 · 설치 5분</p>
-
-  <!-- HERO PHONE MOCKUP -->
-  <div class="hero-phones">
-    <svg viewBox="0 0 220 440" width="220" height="440" xmlns="http://www.w3.org/2000/svg">
-      <rect x="1" y="1" width="218" height="438" rx="36" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
-      <rect x="8" y="8" width="204" height="424" rx="30" fill="#0d1f3c"/>
-      <!-- notch -->
-      <rect x="75" y="10" width="70" height="20" rx="10" fill="#111"/>
-      <!-- header -->
-      <rect x="8" y="28" width="204" height="52" fill="#0d1f3c"/>
-      <text x="110" y="60" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="white">AI가 리뷰를 써드립니다</text>
-      <!-- body bg -->
-      <rect x="8" y="80" width="204" height="352" fill="white"/>
-      <!-- grid cards -->
-      <rect x="20" y="92" width="88" height="76" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1"/>
-      <text x="64" y="130" text-anchor="middle" font-size="20" fill="#00d4aa">🍽</text>
-      <text x="64" y="154" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#0d1f3c">음식점</text>
-      <rect x="116" y="92" width="88" height="76" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1"/>
-      <text x="160" y="130" text-anchor="middle" font-size="20" fill="#00d4aa">☕</text>
-      <text x="160" y="154" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#0d1f3c">카페</text>
-      <rect x="20" y="176" width="88" height="76" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1"/>
-      <text x="64" y="214" text-anchor="middle" font-size="20" fill="#00d4aa">✂</text>
-      <text x="64" y="238" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#0d1f3c">미용실</text>
-      <rect x="116" y="176" width="88" height="76" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1"/>
-      <text x="160" y="214" text-anchor="middle" font-size="20" fill="#00d4aa">💅</text>
-      <text x="160" y="238" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#0d1f3c">네일샵</text>
-      <rect x="20" y="260" width="88" height="76" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1"/>
-      <text x="64" y="298" text-anchor="middle" font-size="20" fill="#00d4aa">📚</text>
-      <text x="64" y="322" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#0d1f3c">학원</text>
-      <rect x="116" y="260" width="88" height="76" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1"/>
-      <text x="160" y="298" text-anchor="middle" font-size="20" fill="#00d4aa">✨</text>
-      <text x="160" y="322" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#0d1f3c">피부샵</text>
-      <!-- CTA -->
-      <rect x="20" y="352" width="180" height="40" rx="20" fill="#00d4aa"/>
-      <text x="110" y="377" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#000">내 업종 선택하기</text>
-    </svg>
+  <div class="hero-right">
+    <div class="phone-glow"></div>
+    <div class="phone-float">
+      <svg viewBox="0 0 260 520" width="260" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="258" height="518" rx="44" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1.5"/>
+        <rect x="9" y="9" width="242" height="502" rx="36" fill="#0d1f3c"/>
+        <rect x="88" y="11" width="84" height="24" rx="12" fill="#111"/>
+        <rect x="9" y="33" width="242" height="60" fill="#0d1f3c"/>
+        <text x="130" y="70" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="white">AI가 리뷰를 써드립니다</text>
+        <rect x="9" y="93" width="242" height="418" fill="white"/>
+        <rect x="22" y="106" width="102" height="88" rx="14" fill="white" stroke="#eee" stroke-width="1"/>
+        <text x="73" y="146" text-anchor="middle" font-size="24">🍽️</text>
+        <text x="73" y="172" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#0d1f3c">음식점</text>
+        <rect x="136" y="106" width="102" height="88" rx="14" fill="white" stroke="#eee" stroke-width="1"/>
+        <text x="187" y="146" text-anchor="middle" font-size="24">☕</text>
+        <text x="187" y="172" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#0d1f3c">카페</text>
+        <rect x="22" y="202" width="102" height="88" rx="14" fill="white" stroke="#eee" stroke-width="1"/>
+        <text x="73" y="242" text-anchor="middle" font-size="24">✂️</text>
+        <text x="73" y="268" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#0d1f3c">미용실</text>
+        <rect x="136" y="202" width="102" height="88" rx="14" fill="white" stroke="#eee" stroke-width="1"/>
+        <text x="187" y="242" text-anchor="middle" font-size="24">💅</text>
+        <text x="187" y="268" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#0d1f3c">네일샵</text>
+        <rect x="22" y="298" width="102" height="88" rx="14" fill="white" stroke="#eee" stroke-width="1"/>
+        <text x="73" y="338" text-anchor="middle" font-size="24">📚</text>
+        <text x="73" y="364" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#0d1f3c">학원</text>
+        <rect x="136" y="298" width="102" height="88" rx="14" fill="white" stroke="#eee" stroke-width="1"/>
+        <text x="187" y="338" text-anchor="middle" font-size="24">✨</text>
+        <text x="187" y="364" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#0d1f3c">피부샵</text>
+        <rect x="22" y="404" width="216" height="46" rx="23" fill="#00d4aa"/>
+        <text x="130" y="433" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#000">내 업종 선택하기</text>
+      </svg>
+    </div>
   </div>
 </div>
 
 <!-- BADGES -->
 <div class="badges-wrap reveal">
-  <p class="badges-label">전국 사업장 도입 중</p>
-  <div class="badges-row">
-    <span class="badge">음식점</span>
-    <span class="badge">카페</span>
-    <span class="badge">미용실</span>
-    <span class="badge">네일샵</span>
-    <span class="badge">학원</span>
-    <span class="badge">피부샵</span>
-    <span class="badge">병원</span>
-    <span class="badge">호텔</span>
+  <div class="badges-inner">
+    <span class="badges-label">전국 도입 중</span>
+    <div class="badges-row">
+      <span class="badge">음식점</span><span class="badge">카페</span><span class="badge">미용실</span>
+      <span class="badge">네일샵</span><span class="badge">학원</span><span class="badge">피부샵</span>
+      <span class="badge">병원</span><span class="badge">호텔</span>
+    </div>
   </div>
 </div>
 
 <!-- PROBLEM -->
-<section class="problem-section">
-  <div class="eyebrow reveal">공감하시나요</div>
-  <h2 class="section-title reveal">리뷰 요청이<br>불편하셨죠.</h2>
-  <div class="problem-grid">
-    <div class="problem-card reveal reveal-delay-1">
-      <div class="problem-num">01</div>
-      <div class="problem-title">"리뷰 부탁드려요"<br>말 꺼내기가 민망하다</div>
-      <div class="problem-desc">단골 고객에게도 리뷰를 부탁하기가 어색하고 부담스럽습니다. 결국 요청을 못 하고 그냥 보내게 됩니다.</div>
-    </div>
-    <div class="problem-card reveal reveal-delay-2">
-      <div class="problem-num">02</div>
-      <div class="problem-title">요청해도<br>10명 중 1명만 작성</div>
-      <div class="problem-desc">직접 부탁해도 실제로 리뷰를 남기는 고객은 극소수입니다. 작성 과정이 번거롭기 때문입니다.</div>
-    </div>
-    <div class="problem-card reveal reveal-delay-3">
-      <div class="problem-num">03</div>
-      <div class="problem-title">별점이 낮으면<br>신규 고객이 안 온다</div>
-      <div class="problem-desc">구글 별점은 신규 고객의 첫 판단 기준입니다. 리뷰가 적으면 경쟁 사업장에 고객을 빼앗깁니다.</div>
+<div class="problem-wrap">
+  <div class="section-inner">
+    <div class="eyebrow reveal">공감하시나요</div>
+    <h2 class="section-title reveal">리뷰 요청이<br>불편하셨죠.</h2>
+    <p class="section-sub reveal">사장님 잘못이 아닙니다. 구조가 불편했던 겁니다.</p>
+    <div class="problem-grid">
+      <div class="problem-card reveal d1">
+        <div class="problem-num">01</div>
+        <div class="problem-title">"리뷰 부탁드려요"<br>말 꺼내기가 민망하다</div>
+        <div class="problem-desc">단골 고객에게도 리뷰를 부탁하기가 어색하고 부담스럽습니다. 결국 요청을 못 하고 그냥 보내게 됩니다.</div>
+      </div>
+      <div class="problem-card reveal d2">
+        <div class="problem-num">02</div>
+        <div class="problem-title">요청해도<br>10명 중 1명만 작성</div>
+        <div class="problem-desc">직접 부탁해도 실제로 리뷰를 남기는 고객은 극소수입니다. 작성 과정이 번거롭기 때문입니다.</div>
+      </div>
+      <div class="problem-card reveal d3">
+        <div class="problem-num">03</div>
+        <div class="problem-title">별점이 낮으면<br>신규 고객이 안 온다</div>
+        <div class="problem-desc">구글 별점은 신규 고객의 첫 판단 기준입니다. 리뷰가 적으면 경쟁 사업장에 고객을 빼앗깁니다.</div>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- HOW IT WORKS -->
-<div class="how-section">
-  <div class="how-inner">
+<!-- HOW -->
+<div class="how-wrap">
+  <div class="section-inner">
     <div class="eyebrow reveal">작동 방식</div>
     <h2 class="section-title reveal">단 3단계.</h2>
-    <p class="section-sub reveal">QR 코드 하나로 전체 과정이 완성됩니다.<br>앱 설치 없이 스마트폰으로 바로 사용합니다.</p>
+    <p class="section-sub reveal">QR 코드 하나로 전체 과정이 완성됩니다.</p>
     <div class="how-phones">
-      <!-- STEP 1 -->
-      <div class="how-phone-wrap reveal reveal-delay-1">
-        <div class="how-step-num">1</div>
+      <div class="how-phone-item reveal d1">
+        <div class="step-badge">1</div>
         <svg viewBox="0 0 220 440" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="1" width="218" height="438" rx="36" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+          <rect x="1" y="1" width="218" height="438" rx="36" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
           <rect x="8" y="8" width="204" height="424" rx="30" fill="white"/>
           <rect x="75" y="10" width="70" height="20" rx="10" fill="#111"/>
           <rect x="8" y="28" width="204" height="52" fill="#0d1f3c"/>
-          <text x="110" y="60" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="white">AI가 리뷰를 써드립니다</text>
-          <rect x="20" y="92" width="88" height="72" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1"/>
-          <text x="64" y="128" text-anchor="middle" font-size="18">🍽</text>
-          <text x="64" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">음식점</text>
-          <rect x="116" y="92" width="88" height="72" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1"/>
-          <text x="160" y="128" text-anchor="middle" font-size="18">☕</text>
-          <text x="160" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">카페</text>
-          <rect x="20" y="172" width="88" height="72" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1"/>
-          <text x="64" y="208" text-anchor="middle" font-size="18">✂</text>
-          <text x="64" y="230" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">미용실</text>
-          <rect x="116" y="172" width="88" height="72" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1"/>
-          <text x="160" y="208" text-anchor="middle" font-size="18">💅</text>
-          <text x="160" y="230" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">네일샵</text>
-          <rect x="20" y="252" width="88" height="72" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1"/>
-          <text x="64" y="288" text-anchor="middle" font-size="18">📚</text>
-          <text x="64" y="310" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">학원</text>
-          <rect x="116" y="252" width="88" height="72" rx="12" fill="white" stroke="#e5e5e5" stroke-width="1"/>
-          <text x="160" y="288" text-anchor="middle" font-size="18">✨</text>
-          <text x="160" y="310" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">피부샵</text>
+          <text x="110" y="59" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="white">AI가 리뷰를 써드립니다</text>
+          <rect x="20" y="92" width="84" height="72" rx="12" fill="white" stroke="#eee" stroke-width="1"/><text x="62" y="128" text-anchor="middle" font-size="18">🍽️</text><text x="62" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">음식점</text>
+          <rect x="116" y="92" width="84" height="72" rx="12" fill="white" stroke="#eee" stroke-width="1"/><text x="158" y="128" text-anchor="middle" font-size="18">☕</text><text x="158" y="150" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">카페</text>
+          <rect x="20" y="172" width="84" height="72" rx="12" fill="white" stroke="#eee" stroke-width="1"/><text x="62" y="208" text-anchor="middle" font-size="18">✂️</text><text x="62" y="230" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">미용실</text>
+          <rect x="116" y="172" width="84" height="72" rx="12" fill="white" stroke="#eee" stroke-width="1"/><text x="158" y="208" text-anchor="middle" font-size="18">💅</text><text x="158" y="230" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">네일샵</text>
+          <rect x="20" y="252" width="84" height="72" rx="12" fill="white" stroke="#eee" stroke-width="1"/><text x="62" y="288" text-anchor="middle" font-size="18">📚</text><text x="62" y="310" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">학원</text>
+          <rect x="116" y="252" width="84" height="72" rx="12" fill="white" stroke="#eee" stroke-width="1"/><text x="158" y="288" text-anchor="middle" font-size="18">✨</text><text x="158" y="310" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">피부샵</text>
           <rect x="20" y="344" width="180" height="38" rx="19" fill="#00d4aa"/>
           <text x="110" y="368" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#000">내 업종 선택하기</text>
         </svg>
         <div class="how-caption">업종 선택</div>
-        <div class="how-caption-sub">QR 스캔 후 업종 탭</div>
+        <div class="how-caption-sub">QR 스캔 후<br>업종 탭 하나</div>
       </div>
-      <!-- STEP 2 -->
-      <div class="how-phone-wrap reveal reveal-delay-2">
-        <div class="how-step-num">2</div>
+      <div class="how-phone-item reveal d2">
+        <div class="step-badge">2</div>
         <svg viewBox="0 0 220 440" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="1" width="218" height="438" rx="36" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+          <rect x="1" y="1" width="218" height="438" rx="36" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
           <rect x="8" y="8" width="204" height="424" rx="30" fill="#f5f5f7"/>
           <rect x="75" y="10" width="70" height="20" rx="10" fill="#111"/>
           <rect x="8" y="28" width="204" height="52" fill="#0d1f3c"/>
           <text x="30" y="58" font-family="sans-serif" font-size="18" fill="#00d4aa">‹</text>
           <text x="110" y="58" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="white">AI 추천 문구</text>
-          <!-- chip -->
-          <rect x="20" y="92" width="68" height="26" rx="13" fill="#e8faf5" stroke="#00d4aa" stroke-width="1"/>
-          <text x="44" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">음식점 ✓</text>
-          <!-- review card -->
+          <rect x="20" y="92" width="72" height="26" rx="13" fill="#e8faf5" stroke="#00d4aa" stroke-width="1"/>
+          <text x="56" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">음식점 ✓</text>
           <rect x="16" y="128" width="188" height="130" rx="16" fill="white"/>
-          <text x="30" y="158" font-family="sans-serif" font-size="11" fill="#1d1d1f">음식이 정말 맛있었어요.</text>
-          <text x="30" y="178" font-family="sans-serif" font-size="11" fill="#1d1d1f">직원분들도 너무 친절하시고</text>
-          <text x="30" y="198" font-family="sans-serif" font-size="11" fill="#1d1d1f">또 방문하고 싶은 곳입니다.</text>
-          <!-- progress -->
-          <rect x="30" y="230" width="158" height="3" rx="2" fill="#e5e5e5"/>
-          <rect x="30" y="230" width="158" height="3" rx="2" fill="#00d4aa"/>
-          <text x="188" y="228" text-anchor="end" font-family="sans-serif" font-size="9" fill="#00d4aa">100%</text>
-          <!-- buttons -->
-          <rect x="16" y="274" width="86" height="36" rx="18" fill="white" stroke="#0d1f3c" stroke-width="1"/>
-          <text x="59" y="297" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">다시 생성</text>
-          <rect x="110" y="274" width="94" height="36" rx="18" fill="#00d4aa"/>
-          <text x="157" y="297" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#000">문구 사용하기</text>
+          <text x="30" y="160" font-family="sans-serif" font-size="11" fill="#1d1d1f">음식이 정말 맛있었어요.</text>
+          <text x="30" y="180" font-family="sans-serif" font-size="11" fill="#1d1d1f">직원분들도 너무 친절하시고</text>
+          <text x="30" y="200" font-family="sans-serif" font-size="11" fill="#1d1d1f">또 방문하고 싶은 곳입니다.</text>
+          <rect x="30" y="232" width="160" height="3" rx="2" fill="#e5e5e5"/>
+          <rect x="30" y="232" width="160" height="3" rx="2" fill="#00d4aa"/>
+          <text x="190" y="230" text-anchor="end" font-family="sans-serif" font-size="9" fill="#00d4aa">100%</text>
+          <rect x="16" y="278" width="86" height="36" rx="18" fill="white" stroke="#0d1f3c" stroke-width="1"/>
+          <text x="59" y="301" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">다시 생성</text>
+          <rect x="110" y="278" width="94" height="36" rx="18" fill="#00d4aa"/>
+          <text x="157" y="301" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#000">문구 사용하기</text>
         </svg>
         <div class="how-caption">AI 리뷰 생성</div>
-        <div class="how-caption-sub">1초 만에 자동 완성</div>
+        <div class="how-caption-sub">1초 만에<br>자동 완성</div>
       </div>
-      <!-- STEP 3 -->
-      <div class="how-phone-wrap reveal reveal-delay-3">
-        <div class="how-step-num">3</div>
+      <div class="how-phone-item reveal d3">
+        <div class="step-badge">3</div>
         <svg viewBox="0 0 220 440" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="1" width="218" height="438" rx="36" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+          <rect x="1" y="1" width="218" height="438" rx="36" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
           <rect x="8" y="8" width="204" height="424" rx="30" fill="#f5f5f7"/>
           <rect x="75" y="10" width="70" height="20" rx="10" fill="#111"/>
-          <!-- check circle -->
-          <circle cx="110" cy="170" r="48" fill="#00d4aa"/>
-          <text x="110" y="182" text-anchor="middle" font-size="36" fill="white">✓</text>
-          <!-- text -->
+          <circle cx="110" cy="170" r="50" fill="#00d4aa"/>
+          <text x="110" y="184" text-anchor="middle" font-size="36" fill="white">✓</text>
           <text x="110" y="248" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#1d1d1f">문구가 복사되었습니다!</text>
-          <text x="110" y="270" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6e6e73">이제 구글 리뷰에 붙여넣기 하세요</text>
-          <!-- google button -->
+          <text x="110" y="270" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6e6e73">구글 리뷰에 붙여넣기 하세요</text>
           <rect x="24" y="292" width="172" height="44" rx="22" fill="white"/>
           <text x="52" y="319" font-family="sans-serif" font-size="14" font-weight="700" fill="#4285F4">G</text>
-          <text x="110" y="319" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#1d1d1f">구글 리뷰 작성하기 →</text>
-          <!-- footer note -->
-          <text x="110" y="370" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#aeaeb2">리뷰 작성 후 이 창을 닫아주세요</text>
+          <text x="115" y="319" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#1d1d1f">구글 리뷰 작성하기 →</text>
+          <text x="110" y="368" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#aeaeb2">리뷰 작성 후 이 창을 닫아주세요</text>
         </svg>
         <div class="how-caption">구글에 게시</div>
-        <div class="how-caption-sub">클립보드 복사 → 붙여넣기</div>
+        <div class="how-caption-sub">클립보드 복사<br>→ 붙여넣기</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SOCIAL PROOF -->
-<section>
-  <div class="eyebrow reveal">실제 사례</div>
-  <h2 class="section-title reveal">사장님들의 이야기.</h2>
-  <p class="section-sub reveal">전국 사업장에서 실제로 겪은 변화입니다.</p>
-  <div class="proof-grid">
-    <div class="proof-card reveal reveal-delay-1">
-      <div class="proof-stars">★★★★★</div>
-      <div class="proof-num">+1,467%</div>
-      <div class="proof-label">월간 구글 리뷰 증가</div>
-      <div class="proof-quote">"매달 리뷰가 3개였는데 지금은 47개예요. QR 붙여두니까 손님들이 알아서 남기더라고요."</div>
-      <div class="proof-author">— 서울 음식점 사장님</div>
-    </div>
-    <div class="proof-card reveal reveal-delay-2">
-      <div class="proof-stars">★★★★★</div>
-      <div class="proof-num">+32%</div>
-      <div class="proof-label">신규 방문 고객 증가</div>
-      <div class="proof-quote">"신규 손님이 '리뷰 보고 왔어요'라고 하는 게 부쩍 늘었어요. 별점도 4.2에서 4.8로 올랐고요."</div>
-      <div class="proof-author">— 경기 미용실 원장님</div>
-    </div>
-    <div class="proof-card reveal reveal-delay-3">
-      <div class="proof-stars">★★★★★</div>
-      <div class="proof-num">4.8★</div>
-      <div class="proof-label">평균 구글 별점</div>
-      <div class="proof-quote">"학부모님들이 먼저 리뷰를 써주세요. 원장이 직접 부탁하는 것보다 훨씬 자연스럽고 편해요."</div>
-      <div class="proof-author">— 부산 학원 원장님</div>
+<!-- FEATURES -->
+<div class="features-wrap">
+  <div class="section-inner">
+    <div class="eyebrow reveal">주요 기능</div>
+    <h2 class="section-title reveal">고객 입장에서<br>가장 쉬운 경험.</h2>
+    <div class="features-grid">
+      <div class="feature-card reveal d1">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">앱 설치 불필요</div>
+        <div class="feature-desc">QR 코드만 스캔하면 됩니다. 고객이 별도 앱을 설치할 필요가 없어 진입 장벽이 없습니다.</div>
+      </div>
+      <div class="feature-card reveal d2">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-title">AI 자동 문구 생성</div>
+        <div class="feature-desc">업종과 경험을 선택하면 AI가 자연스러운 리뷰 문구를 즉시 생성합니다. 고객은 복사만 하면 됩니다.</div>
+      </div>
+      <div class="feature-card reveal d3">
+        <div class="feature-icon">⭐</div>
+        <div class="feature-title">구글 리뷰 직연결</div>
+        <div class="feature-desc">문구 복사 후 버튼 하나로 구글 리뷰 페이지로 바로 이동합니다. 단계를 최소화해 완료율을 높입니다.</div>
+      </div>
+      <div class="feature-card reveal d1">
+        <div class="feature-icon">🏪</div>
+        <div class="feature-title">모든 업종 지원</div>
+        <div class="feature-desc">음식점, 카페, 미용실, 네일샵, 학원, 피부샵, 병원, 호텔 등 구글 리뷰가 필요한 모든 사업장에 적용 가능합니다.</div>
+      </div>
+      <div class="feature-card reveal d2">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">설치 5분</div>
+        <div class="feature-desc">QR 코드를 출력해서 카운터에 놓으면 끝입니다. 복잡한 기술 설정 없이 당일 바로 시작할 수 있습니다.</div>
+      </div>
+      <div class="feature-card reveal d3">
+        <div class="feature-icon">🌍</div>
+        <div class="feature-title">해외 사업장 지원</div>
+        <div class="feature-desc">글로벌 사업장도 사용 가능합니다. 다국어 지원으로 외국인 고객의 리뷰 작성도 쉽게 유도할 수 있습니다.</div>
+      </div>
     </div>
   </div>
-</section>
+</div>
+
+<!-- NUMBERS -->
+<div class="numbers-wrap reveal">
+  <div class="numbers-inner">
+    <div class="number-item">
+      <div class="num">3<span class="unit">배</span></div>
+      <div class="label">리뷰 작성률 향상 기대</div>
+    </div>
+    <div class="number-item">
+      <div class="num">30<span class="unit">초</span></div>
+      <div class="label">고객 리뷰 완성 소요 시간</div>
+    </div>
+    <div class="number-item">
+      <div class="num">5<span class="unit">분</span></div>
+      <div class="label">사업장 설치 시간</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROOF -->
+<div class="proof-wrap">
+  <div class="section-inner">
+    <div class="eyebrow reveal">실제 사례</div>
+    <h2 class="section-title reveal">사장님들의 이야기.</h2>
+    <div class="proof-grid">
+      <div class="proof-card reveal d1">
+        <div class="proof-stars">★★★★★</div>
+        <div class="proof-metric">+1,467%</div>
+        <div class="proof-metric-label">월간 구글 리뷰 증가</div>
+        <div class="proof-divider"></div>
+        <div class="proof-text">"매달 리뷰가 3개였는데 지금은 47개예요. QR 붙여두니까 손님들이 알아서 남기더라고요."</div>
+        <div class="proof-author">— 서울 음식점 사장님</div>
+      </div>
+      <div class="proof-card reveal d2">
+        <div class="proof-stars">★★★★★</div>
+        <div class="proof-metric">+32%</div>
+        <div class="proof-metric-label">신규 방문 고객 증가</div>
+        <div class="proof-divider"></div>
+        <div class="proof-text">"신규 손님이 '리뷰 보고 왔어요'라고 하는 게 부쩍 늘었어요. 별점도 4.2에서 4.8로 올랐고요."</div>
+        <div class="proof-author">— 경기 미용실 원장님</div>
+      </div>
+      <div class="proof-card reveal d3">
+        <div class="proof-stars">★★★★★</div>
+        <div class="proof-metric">4.8★</div>
+        <div class="proof-metric-label">평균 구글 별점</div>
+        <div class="proof-divider"></div>
+        <div class="proof-text">"학부모님들이 먼저 리뷰를 써주세요. 원장이 직접 부탁하는 것보다 훨씬 자연스럽고 편해요."</div>
+        <div class="proof-author">— 부산 학원 원장님</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- PRICING -->
-<div class="pricing-section">
-  <div class="pricing-inner">
+<div class="pricing-wrap">
+  <div class="section-inner">
     <div class="eyebrow reveal">간단한 가격</div>
     <h2 class="section-title reveal">14일 무료.<br>그 다음은 월 29,000원.</h2>
     <div class="pricing-grid">
       <div class="pricing-card reveal">
-        <div class="pricing-badge">무료 체험</div>
-        <div class="pricing-name">14일 체험</div>
-        <div class="pricing-price">₩0</div>
-        <div class="pricing-period">14일 동안 모든 기능 무료</div>
-        <ul class="pricing-features">
-          <li><div class="feat-check">✓</div> AI 리뷰 생성 무제한</li>
-          <li><div class="feat-check">✓</div> QR 코드 즉시 제공</li>
-          <li><div class="feat-check">✓</div> 설치 5분 이내</li>
-          <li><div class="feat-check">✓</div> 카카오톡 1:1 지원</li>
+        <div class="p-badge">무료 체험</div>
+        <div class="p-name">14일 체험</div>
+        <div class="p-price">₩0</div>
+        <div class="p-period">14일 동안 모든 기능 무료</div>
+        <ul class="p-features">
+          <li><div class="p-check">✓</div> AI 리뷰 생성 무제한</li>
+          <li><div class="p-check">✓</div> QR 코드 즉시 제공</li>
+          <li><div class="p-check">✓</div> 설치 5분 이내</li>
+          <li><div class="p-check">✓</div> 카카오톡 1:1 지원</li>
         </ul>
-        <a href="https://open.kakao.com/o/sfMQWowi" class="btn-pricing btn-pricing-outline" target="_blank">카카오톡으로 시작하기</a>
+        <a href="https://open.kakao.com/o/sfMQWowi" class="p-btn p-btn-outline" target="_blank">카카오톡으로 시작하기</a>
       </div>
-      <div class="pricing-card featured reveal reveal-delay-1">
-        <div class="pricing-badge">정식 구독</div>
-        <div class="pricing-name">스탠다드</div>
-        <div class="pricing-price">₩29,000<span>/월</span></div>
-        <div class="pricing-period">월간 구독 · 언제든 해지 가능</div>
-        <ul class="pricing-features">
-          <li><div class="feat-check">✓</div> AI 리뷰 생성 무제한</li>
-          <li><div class="feat-check">✓</div> 업종별 QR 코드 제공</li>
-          <li><div class="feat-check">✓</div> 리뷰 통계 대시보드</li>
-          <li><div class="feat-check">✓</div> 전담 카카오톡 지원</li>
-          <li><div class="feat-check">✓</div> 업종 추가 무제한</li>
+      <div class="pricing-card featured reveal d1">
+        <div class="p-badge">정식 구독</div>
+        <div class="p-name">스탠다드</div>
+        <div class="p-price">₩29,000<span>/월</span></div>
+        <div class="p-period">월간 구독 · 언제든 해지 가능</div>
+        <ul class="p-features">
+          <li><div class="p-check">✓</div> AI 리뷰 생성 무제한</li>
+          <li><div class="p-check">✓</div> 업종별 QR 코드 제공</li>
+          <li><div class="p-check">✓</div> 리뷰 통계 대시보드</li>
+          <li><div class="p-check">✓</div> 전담 카카오톡 지원</li>
+          <li><div class="p-check">✓</div> 업종 추가 무제한</li>
         </ul>
-        <a href="https://open.kakao.com/o/sfMQWowi" class="btn-pricing btn-pricing-dark" target="_blank">지금 시작하기</a>
+        <a href="https://open.kakao.com/o/sfMQWowi" class="p-btn p-btn-dark" target="_blank">지금 시작하기</a>
       </div>
     </div>
   </div>
 </div>
 
 <!-- CTA -->
-<section class="cta-section">
+<div class="cta-wrap">
   <h2 class="cta-title reveal">리뷰가 쌓이면<br>매출이 따라옵니다.</h2>
-  <p class="cta-sub reveal">지금 카카오톡으로 문의하시면 바로 시작할 수 있습니다.</p>
+  <p class="cta-sub reveal">지금 카카오톡으로 문의하시면 당일 세팅해드립니다.</p>
   <div class="cta-btns reveal">
-    <a href="https://open.kakao.com/o/sfMQWowi" class="btn-kakao-large" target="_blank">
-      <div class="kakao-icon-lg">K</div>
+    <a href="https://open.kakao.com/o/sfMQWowi" class="btn-kakao-xl" target="_blank">
+      <div class="kakao-badge-xl">K</div>
       카카오톡으로 문의하기
     </a>
   </div>
-  <p class="cta-note reveal">평균 응답시간 10분 이내 · 24시간 문의 가능</p>
-</section>
+  <p class="cta-note reveal">평균 응답시간 10분 이내 · 14일 무료 체험</p>
+</div>
 
 <!-- FORM -->
-<div class="form-section-wrap" id="form">
-  <div class="form-section">
-    <div class="eyebrow reveal">시작하기</div>
-    <h2 class="section-title reveal">지금 바로.</h2>
-    <p style="font-size:15px;color:var(--text-secondary);margin-bottom:0;" class="reveal">신청하시면 24시간 내 카카오톡으로 연락드립니다.</p>
+<div class="form-wrap" id="form">
+  <div class="form-inner">
+    <div class="eyebrow reveal" style="justify-content:center">시작하기</div>
+    <h2 class="section-title reveal" style="text-align:center">지금 바로.</h2>
+    <p style="font-size:15px;color:#555;margin-bottom:0;text-align:center" class="reveal">신청하시면 24시간 내 카카오톡으로 연락드립니다.</p>
     <div class="form-card reveal">
       <div id="form-content">
-        <div class="form-group">
-          <label class="form-label">이름</label>
-          <input type="text" id="f-name" class="form-input" placeholder="홍길동">
-        </div>
-        <div class="form-group">
-          <label class="form-label">사업장명</label>
-          <input type="text" id="f-biz" class="form-input" placeholder="○○카페">
-        </div>
-        <div class="form-group">
-          <label class="form-label">업종</label>
-          <select id="f-type" class="form-select">
+        <div class="f-group"><label class="f-label">이름</label><input type="text" id="f-name" class="f-input" placeholder="홍길동"></div>
+        <div class="f-group"><label class="f-label">사업장명</label><input type="text" id="f-biz" class="f-input" placeholder="○○카페"></div>
+        <div class="f-group">
+          <label class="f-label">업종</label>
+          <select id="f-type" class="f-select">
             <option value="">선택해주세요</option>
-            <option>음식점</option>
-            <option>카페</option>
-            <option>미용실</option>
-            <option>네일샵</option>
-            <option>학원</option>
-            <option>피부샵</option>
-            <option>병원</option>
-            <option>호텔</option>
-            <option>기타</option>
+            <option>음식점</option><option>카페</option><option>미용실</option>
+            <option>네일샵</option><option>학원</option><option>피부샵</option>
+            <option>병원</option><option>호텔</option><option>기타</option>
           </select>
         </div>
-        <div class="form-group">
-          <label class="form-label">연락처</label>
-          <input type="tel" id="f-tel" class="form-input" placeholder="010-0000-0000">
-        </div>
-        <div class="form-group">
-          <label class="form-label">이메일</label>
-          <input type="email" id="f-email" class="form-input" placeholder="example@email.com">
-        </div>
-        <button class="btn-submit" onclick="submitForm()">무료 체험 신청하기</button>
+        <div class="f-group"><label class="f-label">연락처</label><input type="tel" id="f-tel" class="f-input" placeholder="010-0000-0000"></div>
+        <div class="f-group"><label class="f-label">이메일</label><input type="email" id="f-email" class="f-input" placeholder="example@email.com"></div>
+        <button class="f-submit" onclick="submitForm()">무료 체험 신청하기</button>
       </div>
       <div class="form-success" id="form-success">
-        <div class="form-success-icon">✅</div>
-        <div class="form-success-title">신청이 완료되었습니다!</div>
-        <div class="form-success-sub">24시간 내 카카오톡으로 연락드리겠습니다.<br>감사합니다 😊</div>
+        <div class="success-icon">✅</div>
+        <div class="success-title">신청이 완료되었습니다!</div>
+        <div class="success-sub">24시간 내 카카오톡으로 연락드리겠습니다.<br>감사합니다 😊</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo">AI <span>리뷰</span> 등록기</div>
   <div class="footer-links">
@@ -1074,49 +567,32 @@ footer {
 </footer>
 
 <script>
-const WEBHOOK_URL = 'YOUR_WEBHOOK_URL_HERE';
+const WEBHOOK_URL='YOUR_WEBHOOK_URL_HERE';
 
-// Reveal on scroll
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-// Form submit
-function submitForm() {
-  const name = document.getElementById('f-name');
-  const biz = document.getElementById('f-biz');
-  const type = document.getElementById('f-type');
-  const tel = document.getElementById('f-tel');
-  const email = document.getElementById('f-email');
-  let valid = true;
-
-  [name, biz, type, tel, email].forEach(el => el.classList.remove('error'));
-
-  if (!name.value.trim()) { name.classList.add('error'); valid = false; }
-  if (!biz.value.trim()) { biz.classList.add('error'); valid = false; }
-  if (!type.value) { type.classList.add('error'); valid = false; }
-  if (!tel.value.trim()) { tel.classList.add('error'); valid = false; }
-  if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) { email.classList.add('error'); valid = false; }
-  if (!valid) return;
-
-  const data = {
-    이름: name.value, 사업장명: biz.value, 업종: type.value,
-    연락처: tel.value, 이메일: email.value,
-    신청일시: new Date().toLocaleString('ko-KR')
-  };
-
-  fetch(WEBHOOK_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  }).catch(() => {});
-
-  // META PIXEL EVENT: fbq('track', 'Lead');
-  // GOOGLE ADS EVENT: gtag('event', 'conversion');
-
-  document.getElementById('form-content').style.display = 'none';
-  document.getElementById('form-success').style.display = 'block';
+function submitForm(){
+  const n=document.getElementById('f-name');
+  const b=document.getElementById('f-biz');
+  const t=document.getElementById('f-type');
+  const p=document.getElementById('f-tel');
+  const e=document.getElementById('f-email');
+  let ok=true;
+  [n,b,t,p,e].forEach(el=>el.classList.remove('error'));
+  if(!n.value.trim()){n.classList.add('error');ok=false}
+  if(!b.value.trim()){b.classList.add('error');ok=false}
+  if(!t.value){t.classList.add('error');ok=false}
+  if(!p.value.trim()){p.classList.add('error');ok=false}
+  if(!e.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){e.classList.add('error');ok=false}
+  if(!ok)return;
+  fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({이름:n.value,사업장명:b.value,업종:t.value,연락처:p.value,이메일:e.value,신청일시:new Date().toLocaleString('ko-KR')})}).catch(()=>{});
+  fbq('track', 'Lead');
+  // GOOGLE: gtag('event','conversion');
+  document.getElementById('form-content').style.display='none';
+  document.getElementById('form-success').style.display='block';
 }
 </script>
 </body>
