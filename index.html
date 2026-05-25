@@ -4,319 +4,381 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI 리뷰 등록기 — QR 하나로 구글 리뷰 자동화</title>
+<meta name="description" content="QR 코드를 스캔하면 AI가 리뷰를 써드립니다. 음식점·카페·미용실·학원 등 모든 사업장에 적용 가능. 14일 무료 체험.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '967349412754049');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=967349412754049&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+<!-- META PIXEL: 여기에 Meta 픽셀 코드 삽입 -->
 <!-- GOOGLE ADS TAG: 여기에 Google 전환 태그 삽입 -->
 
 <style>
+:root {
+  --black: #080c14;
+  --navy: #0d1829;
+  --navy-2: #111f35;
+  --mint: #00d4aa;
+  --mint-dim: #00b890;
+  --mint-pale: rgba(0,212,170,0.08);
+  --yellow: #FEE500;
+  --white: #fff;
+  --gray-1: rgba(255,255,255,0.06);
+  --gray-2: rgba(255,255,255,0.10);
+  --gray-3: rgba(255,255,255,0.50);
+  --gray-4: rgba(255,255,255,0.30);
+  --text-dim: rgba(255,255,255,0.55);
+  --radius: 20px;
+  --radius-lg: 32px;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Noto Sans KR',sans-serif;background:#000;color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--black);color:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:rgba(0,0,0,0.85);backdrop-filter:blur(20px);border-bottom:0.5px solid rgba(255,255,255,0.08)}
-.nav-logo{font-size:18px;font-weight:900;color:#fff;letter-spacing:-0.5px}
-.nav-logo span{color:#00d4aa}
-.nav-cta{display:inline-flex;align-items:center;gap:6px;background:#FEE500;color:#000;font-size:13px;font-weight:800;padding:9px 20px;border-radius:100px;text-decoration:none;transition:all 0.2s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:rgba(8,12,20,0.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--gray-1)}
+.nav-logo{font-size:17px;font-weight:900;letter-spacing:-0.5px}
+.nav-logo em{color:var(--mint);font-style:normal}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:#000;font-size:13px;font-weight:800;padding:9px 20px;border-radius:100px;text-decoration:none;transition:all .2s}
 .nav-cta:hover{background:#f0d800;transform:translateY(-1px)}
 
 /* HERO */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px;padding:120px 80px 80px;position:relative;overflow:hidden;background:#000}
-.hero::before{content:'';position:absolute;top:-300px;left:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(0,212,170,0.06) 0%,transparent 70%);pointer-events:none}
-.hero-left{position:relative;z-index:1}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#00d4aa;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:28px;padding:6px 16px;border:1px solid rgba(0,212,170,0.3);border-radius:100px}
-.hero-eyebrow::before{content:'';width:6px;height:6px;background:#00d4aa;border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
-.hero h1{font-size:clamp(48px,5.5vw,80px);font-weight:900;line-height:1.08;letter-spacing:-0.04em;color:#fff;margin-bottom:24px}
-.hero h1 .accent{color:#00d4aa}
-.hero-sub{font-size:17px;font-weight:400;color:#a1a1a6;line-height:1.7;margin-bottom:40px;max-width:480px}
-.hero-sub strong{color:#fff}
-.hero-btns{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:48px}
-.btn-kakao{display:inline-flex;align-items:center;gap:8px;background:#FEE500;color:#000;font-size:15px;font-weight:800;padding:16px 28px;border-radius:100px;text-decoration:none;transition:all 0.2s}
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 80px 80px;position:relative;overflow:hidden}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+.hero-orb-1{width:600px;height:600px;background:rgba(0,212,170,0.07);top:-100px;left:-200px}
+.hero-orb-2{width:400px;height:400px;background:rgba(0,212,170,0.05);bottom:0;right:-100px}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--mint);letter-spacing:.14em;text-transform:uppercase;padding:6px 16px;border:1px solid rgba(0,212,170,0.3);border-radius:100px;margin-bottom:28px}
+.hero-eyebrow .dot{width:6px;height:6px;background:var(--mint);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.hero h1{font-size:clamp(44px,5vw,72px);font-weight:900;line-height:1.08;letter-spacing:-0.04em;margin-bottom:24px}
+.hero h1 .hl{color:var(--mint)}
+.hero-sub{font-size:17px;font-weight:300;color:var(--text-dim);line-height:1.75;margin-bottom:20px;max-width:480px}
+.hero-sub strong{color:var(--white);font-weight:500}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
+.hero-badge{font-size:12px;font-weight:600;padding:6px 14px;border-radius:100px;border:1px solid}
+.hero-badge.b1{border-color:rgba(0,212,170,.4);color:var(--mint)}
+.hero-badge.b2{border-color:rgba(255,255,255,.15);color:var(--gray-3)}
+.hero-badge.b3{border-color:rgba(255,255,255,.15);color:var(--gray-3)}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+.btn-kakao{display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:#000;font-size:15px;font-weight:800;padding:16px 28px;border-radius:100px;text-decoration:none;transition:all .2s}
 .btn-kakao:hover{background:#f0d800;transform:translateY(-1px)}
-.kakao-badge{width:22px;height:22px;background:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#FEE500}
-.btn-ghost{display:inline-flex;align-items:center;gap:6px;color:#fff;font-size:14px;font-weight:500;text-decoration:none;border:1px solid rgba(255,255,255,0.2);padding:15px 24px;border-radius:100px;transition:all 0.2s}
-.btn-ghost:hover{border-color:#00d4aa;color:#00d4aa}
+.kakao-ic{width:22px;height:22px;background:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--yellow)}
+.btn-ghost{display:inline-flex;align-items:center;gap:6px;color:var(--white);font-size:14px;font-weight:500;text-decoration:none;border:1px solid var(--gray-2);padding:15px 24px;border-radius:100px;transition:all .2s}
+.btn-ghost:hover{border-color:var(--mint);color:var(--mint)}
 .hero-stats{display:flex;gap:32px}
-.stat-item{text-align:left}
-.stat-num{font-size:28px;font-weight:900;color:#00d4aa;letter-spacing:-0.03em}
-.stat-label{font-size:12px;color:#666;margin-top:2px}
+.stat-item .n{font-size:30px;font-weight:900;color:var(--mint);letter-spacing:-0.04em}
+.stat-item .l{font-size:12px;color:var(--text-dim);margin-top:2px}
 
 /* HERO PHONE */
-.hero-right{position:relative;display:flex;justify-content:center;align-items:center}
-.phone-float{animation:float 4s ease-in-out infinite}
+.hero-phone{display:flex;justify-content:center;align-items:center}
+.phone-wrap{animation:float 4s ease-in-out infinite;filter:drop-shadow(0 40px 80px rgba(0,212,170,.12))}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
-.phone-glow{position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(0,212,170,0.12) 0%,transparent 70%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
 
-/* BADGES */
-.badges-wrap{background:#0a0a0a;padding:40px 80px;border-top:0.5px solid rgba(255,255,255,0.06);border-bottom:0.5px solid rgba(255,255,255,0.06)}
-.badges-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:center}
-.badges-label{font-size:12px;color:#444;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap}
-.badges-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.badge{font-size:13px;font-weight:500;color:#666;padding:7px 18px;border:0.5px solid rgba(255,255,255,0.1);border-radius:100px;transition:all 0.2s}
-.badge:hover{border-color:#00d4aa;color:#00d4aa}
+/* BADGES STRIP */
+.badges-strip{background:var(--navy);padding:36px 40px;border-top:1px solid var(--gray-1);border-bottom:1px solid var(--gray-1)}
+.badges-strip-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center}
+.bs-label{font-size:12px;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.bs-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.bs-badge{font-size:13px;font-weight:500;color:var(--gray-3);padding:7px 18px;border:1px solid var(--gray-1);border-radius:100px;transition:all .2s;cursor:default}
+.bs-badge:hover{border-color:var(--mint);color:var(--mint)}
+
+/* SECTION */
+.section{padding:100px 40px}
+.section-inner{max-width:1100px;margin:0 auto}
+.s-label{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--mint);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+.s-label::before{content:'';width:24px;height:2px;background:var(--mint);border-radius:2px}
+.s-title{font-size:clamp(32px,4vw,52px);font-weight:900;letter-spacing:-.04em;line-height:1.1;margin-bottom:16px}
+.s-title .hl{color:var(--mint)}
+.s-desc{font-size:16px;color:var(--text-dim);line-height:1.75;max-width:560px;margin-bottom:60px}
 
 /* PROBLEM */
-.problem-wrap{background:#000;padding:120px 80px}
-.section-inner{max-width:1100px;margin:0 auto}
-.eyebrow{font-size:11px;font-weight:700;color:#00d4aa;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
-.eyebrow::before{content:'';width:24px;height:2px;background:#00d4aa;border-radius:2px}
-.section-title{font-size:clamp(36px,4.5vw,60px);font-weight:900;letter-spacing:-0.04em;line-height:1.1;color:#fff;margin-bottom:16px}
-.section-sub{font-size:16px;color:#666;line-height:1.7;margin-bottom:64px;max-width:500px}
+.problem-bg{background:var(--black)}
 .problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.problem-card{background:#0d0d0d;border:0.5px solid rgba(255,255,255,0.06);border-radius:24px;padding:40px 36px;transition:all 0.3s;position:relative;overflow:hidden}
-.problem-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,212,170,0.3),transparent);opacity:0;transition:opacity 0.3s}
-.problem-card:hover{border-color:rgba(0,212,170,0.2);transform:translateY(-4px)}
+.problem-card{background:var(--navy);border:1px solid var(--gray-1);border-radius:var(--radius);padding:40px 36px;transition:all .3s;position:relative;overflow:hidden}
+.problem-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,212,170,.4),transparent);opacity:0;transition:.3s}
+.problem-card:hover{border-color:rgba(0,212,170,.2);transform:translateY(-4px)}
 .problem-card:hover::before{opacity:1}
-.problem-num{font-size:56px;font-weight:900;color:rgba(0,212,170,0.08);line-height:1;margin-bottom:20px}
-.problem-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:12px;line-height:1.35}
-.problem-desc{font-size:14px;color:#666;line-height:1.75}
+.pc-num{font-size:60px;font-weight:900;color:rgba(0,212,170,.07);line-height:1;margin-bottom:20px}
+.pc-title{font-size:20px;font-weight:700;margin-bottom:12px;line-height:1.3}
+.pc-desc{font-size:14px;color:var(--text-dim);line-height:1.75}
 
 /* HOW */
-.how-wrap{background:#0a0a0a;padding:120px 80px;border-top:0.5px solid rgba(255,255,255,0.06)}
-.how-phones{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;align-items:start;margin-top:72px}
-.how-phone-item{text-align:center}
-.step-badge{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:#00d4aa;color:#000;font-size:14px;font-weight:900;border-radius:50%;margin-bottom:24px}
-.how-phone-item svg{width:100%;max-width:200px;filter:drop-shadow(0 32px 64px rgba(0,212,170,0.1))}
-.how-caption{font-size:16px;font-weight:700;color:#fff;margin-top:24px}
-.how-caption-sub{font-size:13px;color:#666;margin-top:6px;line-height:1.6}
-.how-arrow{display:flex;align-items:center;justify-content:center;padding-top:160px;color:#333;font-size:24px}
+.how-bg{background:var(--navy);border-top:1px solid var(--gray-1);border-bottom:1px solid var(--gray-1)}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:64px}
+.how-item{text-align:center}
+.how-step{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:var(--mint);color:#000;font-size:14px;font-weight:900;border-radius:50%;margin-bottom:24px}
+.how-item svg{width:100%;max-width:180px;filter:drop-shadow(0 20px 40px rgba(0,0,0,.5))}
+.how-cap{font-size:16px;font-weight:700;margin-top:20px}
+.how-cap-sub{font-size:13px;color:var(--text-dim);margin-top:6px;line-height:1.6}
 
-/* FEATURES */
-.features-wrap{background:#000;padding:120px 80px;border-top:0.5px solid rgba(255,255,255,0.06)}
-.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:64px}
-.feature-card{background:#0d0d0d;border:0.5px solid rgba(255,255,255,0.06);border-radius:24px;padding:36px;transition:all 0.3s}
-.feature-card:hover{border-color:rgba(0,212,170,0.15);transform:translateY(-4px)}
-.feature-icon{width:48px;height:48px;background:rgba(0,212,170,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:22px}
-.feature-title{font-size:17px;font-weight:700;color:#fff;margin-bottom:10px}
-.feature-desc{font-size:13px;color:#666;line-height:1.7}
+/* REVIEW WIDGET */
+.review-bg{background:var(--black)}
+.review-layout{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.rw-shell{background:var(--navy);border:1px solid var(--gray-1);border-radius:var(--radius-lg);overflow:hidden}
+.rw-header{background:linear-gradient(135deg,#0d1f3c,#0a1828);padding:24px 28px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--gray-1)}
+.rw-header-icon{width:44px;height:44px;background:var(--mint);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.rw-header-title{font-size:15px;font-weight:700}
+.rw-header-sub{font-size:11px;color:var(--text-dim);margin-top:2px;letter-spacing:.06em}
+.rw-body{padding:24px 28px}
+.rw-block{margin-bottom:20px}
+.rw-label{font-size:11px;font-weight:700;color:var(--mint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.rw-title{font-size:14px;font-weight:500;margin-bottom:12px}
+.rw-opt-row{display:flex;gap:8px}
+.rw-opt{flex:1;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:12px;padding:10px;cursor:pointer;transition:all .2s;text-align:center}
+.rw-opt.selected{background:rgba(0,212,170,.12);border-color:var(--mint)}
+.rw-opt-main{display:block;font-size:13px;font-weight:700;color:var(--white)}
+.rw-opt-sub{display:block;font-size:11px;color:var(--text-dim);margin-top:2px}
+.rw-divider{height:1px;background:var(--gray-1);margin:16px 0}
+.rw-lang-row{display:flex;gap:8px;flex-wrap:wrap}
+.rw-lang{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:10px;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:600;color:var(--white);transition:all .2s;display:flex;align-items:center;gap:6px}
+.rw-lang.active{background:rgba(0,212,170,.12);border-color:var(--mint);color:var(--mint)}
+.rw-treat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rw-treat{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:10px;padding:10px 6px;cursor:pointer;font-size:12px;font-weight:600;color:var(--white);transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:4px}
+.rw-treat span{font-size:18px}
+.rw-treat.selected{background:rgba(0,212,170,.12);border-color:var(--mint);color:var(--mint)}
+.rw-kw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.rw-kw{background:var(--gray-1);border:1px solid var(--gray-2);border-radius:10px;padding:10px 12px;cursor:pointer;font-size:12px;font-weight:600;color:var(--white);transition:all .2s;display:flex;align-items:center;gap:6px;text-align:left}
+.rw-kw span{font-size:16px}
+.rw-kw.selected{background:rgba(0,212,170,.12);border-color:var(--mint);color:var(--mint)}
+.rw-result-wrap{background:rgba(0,212,170,.04);border:1px solid rgba(0,212,170,.15);border-radius:14px;padding:16px;margin-bottom:16px}
+.rw-stars{color:var(--mint);font-size:20px;letter-spacing:2px;margin-bottom:10px}
+.rw-loading{display:none;align-items:center;gap:10px;padding:12px 0;color:var(--text-dim);font-size:13px}
+.rw-dots{display:flex;gap:4px}
+.rw-dots div{width:6px;height:6px;background:var(--mint);border-radius:50%;animation:bounce .8s infinite alternate}
+.rw-dots div:nth-child(2){animation-delay:.2s}
+.rw-dots div:nth-child(3){animation-delay:.4s}
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+.rw-ai-badge{display:inline-block;font-size:10px;font-weight:700;color:var(--mint);border:1px solid rgba(0,212,170,.3);border-radius:20px;padding:3px 10px;margin-bottom:8px;letter-spacing:.06em}
+.rw-textarea{width:100%;background:transparent;border:none;outline:none;font-size:13px;color:var(--white);font-family:'Noto Sans KR',sans-serif;line-height:1.7;resize:none;min-height:80px}
+.rw-textarea::placeholder{color:var(--text-dim)}
+.rw-copy-btn{width:100%;padding:14px;background:var(--mint);color:#000;font-size:14px;font-weight:800;border:none;border-radius:100px;cursor:pointer;transition:all .2s;font-family:'Noto Sans KR',sans-serif;margin-bottom:10px}
+.rw-copy-btn:hover{background:var(--mint-dim);transform:translateY(-1px)}
+.rw-copy-guide{display:none;font-size:12px;color:var(--mint);text-align:center;margin-bottom:10px;padding:8px;background:rgba(0,212,170,.08);border-radius:8px}
+.rw-google-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:var(--white);color:#333;font-size:13px;font-weight:700;border-radius:100px;text-decoration:none;transition:all .2s;font-family:'Noto Sans KR',sans-serif}
+.rw-google-btn:hover{background:#f5f5f5;transform:translateY(-1px)}
+.rw-notice{font-size:11px;color:var(--text-dim);text-align:center;margin-top:12px;line-height:1.6;padding:0 4px}
 
-/* NUMBERS */
-.numbers-wrap{background:#00d4aa;padding:80px}
-.numbers-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center}
-.number-item .num{font-size:clamp(48px,6vw,80px);font-weight:900;color:#000;letter-spacing:-0.04em;line-height:1}
-.number-item .unit{font-size:24px;font-weight:900;color:#000}
-.number-item .label{font-size:14px;font-weight:500;color:rgba(0,0,0,0.6);margin-top:8px}
+/* REVIEW RIGHT */
+.review-features{display:flex;flex-direction:column;gap:24px}
+.rf-item{display:flex;gap:16px;align-items:flex-start;background:var(--navy);border:1px solid var(--gray-1);border-radius:var(--radius);padding:24px}
+.rf-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.rf-icon.y{background:rgba(254,229,0,.12)}
+.rf-icon.b{background:rgba(0,150,255,.1)}
+.rf-icon.g{background:rgba(0,212,170,.1)}
+.rf-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.rf-desc{font-size:13px;color:var(--text-dim);line-height:1.6}
+.rf-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.rf-tag{font-size:11px;font-weight:600;color:var(--text-dim);background:var(--gray-1);padding:3px 10px;border-radius:20px}
+
+/* STATS */
+.stats-bg{background:var(--mint)}
+.stats-inner{max-width:1100px;margin:0 auto;padding:80px 40px}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center}
+.stat-card .sn{font-size:clamp(52px,6vw,80px);font-weight:900;color:#000;letter-spacing:-.04em;line-height:1}
+.stat-card .sl{font-size:14px;font-weight:700;color:rgba(0,0,0,.7);margin-top:8px}
+.stat-card .ss{font-size:13px;color:rgba(0,0,0,.5);margin-top:6px;line-height:1.5}
 
 /* PROOF */
-.proof-wrap{background:#000;padding:120px 80px;border-top:0.5px solid rgba(255,255,255,0.06)}
-.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:64px}
-.proof-card{background:#0d0d0d;border:0.5px solid rgba(255,255,255,0.06);border-radius:24px;padding:40px 36px;transition:all 0.3s}
-.proof-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.1)}
-.proof-stars{font-size:20px;letter-spacing:2px;margin-bottom:20px}
-.proof-metric{font-size:44px;font-weight:900;color:#00d4aa;letter-spacing:-0.04em;margin-bottom:6px}
-.proof-metric-label{font-size:13px;color:#555;margin-bottom:24px}
-.proof-divider{height:0.5px;background:rgba(255,255,255,0.06);margin-bottom:20px}
-.proof-text{font-size:14px;color:#777;line-height:1.75;font-style:italic}
-.proof-author{font-size:12px;color:#444;margin-top:12px;font-style:normal}
+.proof-bg{background:var(--black)}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.proof-card{background:var(--navy);border:1px solid var(--gray-1);border-radius:var(--radius);padding:36px;transition:all .3s}
+.proof-card:hover{transform:translateY(-4px);border-color:var(--gray-2)}
+.proof-stars{font-size:20px;letter-spacing:2px;margin-bottom:16px}
+.proof-metric{font-size:44px;font-weight:900;color:var(--mint);letter-spacing:-.04em;margin-bottom:4px}
+.proof-metric-lbl{font-size:13px;color:var(--text-dim);margin-bottom:20px}
+.proof-divider{height:1px;background:var(--gray-1);margin-bottom:16px}
+.proof-text{font-size:14px;color:var(--gray-3);line-height:1.75;font-style:italic}
+.proof-author{font-size:12px;color:var(--text-dim);margin-top:10px;font-style:normal}
 
 /* PRICING */
-.pricing-wrap{background:#0a0a0a;padding:120px 80px;border-top:0.5px solid rgba(255,255,255,0.06)}
+.pricing-bg{background:var(--navy);border-top:1px solid var(--gray-1)}
 .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:800px;margin:64px auto 0}
-.pricing-card{background:#111;border:0.5px solid rgba(255,255,255,0.08);border-radius:28px;padding:48px;transition:all 0.3s}
-.pricing-card.featured{background:#00d4aa;border-color:#00d4aa}
-.pricing-card.featured *{color:#000 !important}
-.p-badge{display:inline-block;font-size:11px;font-weight:700;padding:4px 12px;background:rgba(0,212,170,0.12);color:#00d4aa;border-radius:100px;margin-bottom:24px;letter-spacing:0.08em;text-transform:uppercase}
-.pricing-card.featured .p-badge{background:rgba(0,0,0,0.12);color:#000}
-.p-name{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
-.p-price{font-size:52px;font-weight:900;color:#fff;letter-spacing:-0.04em;line-height:1;margin-bottom:6px}
+.pricing-card{background:var(--navy-2);border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:48px;transition:all .3s}
+.pricing-card.feat{background:var(--mint);border-color:var(--mint)}
+.pricing-card.feat *{color:#000}
+.p-badge{display:inline-block;font-size:11px;font-weight:700;padding:4px 12px;background:rgba(0,212,170,.1);color:var(--mint);border-radius:100px;margin-bottom:20px;letter-spacing:.08em;text-transform:uppercase}
+.pricing-card.feat .p-badge{background:rgba(0,0,0,.1);color:#000}
+.p-name{font-size:20px;font-weight:700;margin-bottom:8px}
+.p-price{font-size:52px;font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:6px}
 .p-price span{font-size:18px;font-weight:400;letter-spacing:0}
-.p-period{font-size:13px;color:#555;margin-bottom:36px}
-.p-features{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:40px}
-.p-features li{display:flex;align-items:center;gap:10px;font-size:14px;color:#888}
-.p-check{width:20px;height:20px;background:rgba(0,212,170,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#00d4aa;flex-shrink:0}
-.pricing-card.featured .p-check{background:rgba(0,0,0,0.12);color:#000}
-.p-btn{width:100%;padding:16px;border-radius:100px;font-size:15px;font-weight:800;cursor:pointer;border:none;transition:all 0.2s;text-decoration:none;display:block;text-align:center;font-family:'Noto Sans KR',sans-serif}
-.p-btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.15)}
-.p-btn-outline:hover{border-color:#00d4aa;color:#00d4aa}
+.p-period{font-size:13px;color:var(--text-dim);margin-bottom:32px}
+.pricing-card.feat .p-period{color:rgba(0,0,0,.6)}
+.p-features{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:36px}
+.p-features li{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-dim)}
+.pricing-card.feat .p-features li{color:rgba(0,0,0,.8)}
+.p-check{width:18px;height:18px;background:rgba(0,212,170,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--mint);flex-shrink:0}
+.pricing-card.feat .p-check{background:rgba(0,0,0,.1);color:#000}
+.p-btn{width:100%;padding:15px;border-radius:100px;font-size:14px;font-weight:800;cursor:pointer;border:none;transition:all .2s;text-decoration:none;display:block;text-align:center;font-family:'Noto Sans KR',sans-serif}
+.p-btn-out{background:transparent;color:var(--white);border:1px solid var(--gray-2)}
+.p-btn-out:hover{border-color:var(--mint);color:var(--mint)}
 .p-btn-dark{background:#000;color:#fff}
 .p-btn-dark:hover{background:#111}
 
 /* CTA */
-.cta-wrap{background:#000;padding:140px 80px;text-align:center;position:relative;overflow:hidden;border-top:0.5px solid rgba(255,255,255,0.06)}
-.cta-wrap::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,170,0.05) 0%,transparent 70%);pointer-events:none}
-.cta-title{font-size:clamp(40px,6vw,80px);font-weight:900;letter-spacing:-0.04em;line-height:1.05;margin-bottom:20px;max-width:800px;margin-left:auto;margin-right:auto}
-.cta-sub{font-size:16px;color:#666;margin-bottom:48px}
-.cta-btns{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
-.btn-kakao-xl{display:inline-flex;align-items:center;gap:10px;background:#FEE500;color:#000;font-size:18px;font-weight:900;padding:20px 40px;border-radius:100px;text-decoration:none;transition:all 0.2s}
+.cta-bg{background:var(--black);text-align:center;padding:120px 40px;position:relative;overflow:hidden;border-top:1px solid var(--gray-1)}
+.cta-orb{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,170,.05) 0%,transparent 70%);pointer-events:none;border-radius:50%}
+.cta-title{font-size:clamp(40px,6vw,72px);font-weight:900;letter-spacing:-.04em;line-height:1.05;margin-bottom:20px;position:relative}
+.cta-sub{font-size:16px;color:var(--text-dim);margin-bottom:44px;position:relative}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;position:relative}
+.btn-kakao-xl{display:inline-flex;align-items:center;gap:10px;background:var(--yellow);color:#000;font-size:18px;font-weight:900;padding:20px 40px;border-radius:100px;text-decoration:none;transition:all .2s}
 .btn-kakao-xl:hover{background:#f0d800;transform:translateY(-2px)}
-.kakao-badge-xl{width:28px;height:28px;background:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#FEE500}
-.cta-note{font-size:13px;color:#333;margin-top:20px}
+.kakao-ic-xl{width:28px;height:28px;background:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--yellow)}
+.cta-note{font-size:13px;color:var(--text-dim);margin-top:20px;position:relative}
 
 /* FORM */
-.form-wrap{background:#0a0a0a;border-top:0.5px solid rgba(255,255,255,0.06);padding:120px 80px}
-.form-inner{max-width:600px;margin:0 auto;text-align:center}
-.form-card{background:#111;border:0.5px solid rgba(255,255,255,0.08);border-radius:32px;padding:56px 48px;text-align:left;margin-top:48px}
-.f-group{margin-bottom:20px}
-.f-label{display:block;font-size:12px;font-weight:700;color:#555;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px}
-.f-input,.f-select{width:100%;background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px 18px;font-size:15px;color:#fff;font-family:'Noto Sans KR',sans-serif;transition:border-color 0.2s;outline:none;appearance:none}
-.f-input::placeholder{color:#333}
-.f-input:focus,.f-select:focus{border-color:#00d4aa}
+.form-bg{background:var(--navy);border-top:1px solid var(--gray-1)}
+.form-inner{max-width:600px;margin:0 auto;padding:100px 40px;text-align:center}
+.form-card{background:var(--navy-2);border:1px solid var(--gray-2);border-radius:var(--radius-lg);padding:48px 40px;text-align:left;margin-top:40px}
+.f-group{margin-bottom:18px}
+.f-label{display:block;font-size:11px;font-weight:700;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.f-input,.f-select{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--gray-1);border-radius:12px;padding:13px 16px;font-size:15px;color:var(--white);font-family:'Noto Sans KR',sans-serif;transition:border-color .2s;outline:none;appearance:none}
+.f-input::placeholder{color:var(--text-dim)}
+.f-input:focus,.f-select:focus{border-color:var(--mint)}
 .f-input.error{border-color:#ff4d4f}
 .f-select{cursor:pointer}
-.f-select option{background:#111}
-.f-submit{width:100%;padding:18px;background:#00d4aa;color:#000;font-size:16px;font-weight:900;border:none;border-radius:100px;cursor:pointer;transition:all 0.2s;font-family:'Noto Sans KR',sans-serif;margin-top:8px}
-.f-submit:hover{background:#00b890;transform:translateY(-1px)}
-.form-success{display:none;text-align:center;padding:40px 0}
-.success-icon{font-size:52px;margin-bottom:16px}
-.success-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px}
-.success-sub{font-size:14px;color:#666;line-height:1.7}
+.f-select option{background:var(--navy-2)}
+.f-submit{width:100%;padding:16px;background:var(--mint);color:#000;font-size:15px;font-weight:900;border:none;border-radius:100px;cursor:pointer;transition:all .2s;font-family:'Noto Sans KR',sans-serif;margin-top:4px}
+.f-submit:hover{background:var(--mint-dim);transform:translateY(-1px)}
+.form-success{display:none;text-align:center;padding:32px 0}
+.form-success .si{font-size:48px;margin-bottom:14px}
+.form-success .st{font-size:20px;font-weight:800;margin-bottom:8px}
+.form-success .ss{font-size:14px;color:var(--text-dim);line-height:1.7}
 
 /* FOOTER */
-footer{background:#000;border-top:0.5px solid rgba(255,255,255,0.06);padding:48px 80px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.footer-logo{font-size:16px;font-weight:900;color:#fff}
-.footer-logo span{color:#00d4aa}
+footer{background:var(--black);border-top:1px solid var(--gray-1);padding:48px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-logo{font-size:16px;font-weight:900}
+.footer-logo em{color:var(--mint);font-style:normal}
 .footer-links{display:flex;gap:24px}
-.footer-links a{font-size:13px;color:#444;text-decoration:none;transition:color 0.2s}
-.footer-links a:hover{color:#fff}
-.footer-copy{font-size:12px;color:#333}
+.footer-links a{font-size:13px;color:var(--text-dim);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--white)}
+.footer-copy{font-size:12px;color:var(--text-dim)}
 
 /* REVEAL */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.75s ease,transform 0.75s ease}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
 .reveal.visible{opacity:1;transform:none}
-.d1{transition-delay:0.1s}.d2{transition-delay:0.2s}.d3{transition-delay:0.3s}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
 
 /* MOBILE */
 @media(max-width:900px){
   nav{padding:0 20px}
-  .hero{grid-template-columns:1fr;padding:100px 24px 60px;text-align:center}
-  .hero-right{display:none}
-  .hero-stats{justify-content:center}
-  .badges-wrap,.problem-wrap,.how-wrap,.features-wrap,.proof-wrap,.pricing-wrap,.cta-wrap,.form-wrap,.numbers-wrap{padding:80px 24px}
-  .problem-grid,.how-phones,.features-grid,.proof-grid,.pricing-grid,.numbers-inner{grid-template-columns:1fr}
-  .how-arrow{display:none}
+  .hero{padding:100px 24px 60px}
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-phone{display:none}
+  .section{padding:72px 24px}
+  .problem-grid,.how-grid,.proof-grid,.pricing-grid,.stats-grid,.review-layout{grid-template-columns:1fr}
+  .review-layout{gap:32px}
   footer{flex-direction:column;text-align:center;padding:40px 24px}
   .footer-links{justify-content:center}
+  .badges-strip{padding:28px 24px}
+  .stats-inner{padding:60px 24px}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">AI <span>리뷰</span></div>
+  <div class="nav-logo">AI <em>리뷰</em> 등록기</div>
   <a href="https://open.kakao.com/o/sfMQWowi" class="nav-cta" target="_blank">
-    <div class="kakao-badge">K</div> 카카오톡 문의
+    <i class="fab fa-kakao"></i> 카카오톡 문의
   </a>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-left">
-    <div class="hero-eyebrow">AI 리뷰 자동화</div>
-    <h1>리뷰가 쌓이면<br>매출이 <span class="accent">따라옵니다.</span></h1>
-    <p class="hero-sub">고객이 QR을 찍으면 <strong>AI가 리뷰를 써드립니다.</strong><br>말 꺼내기 불편했던 그 순간, 이제 QR 하나로 해결하세요.</p>
-    <div class="hero-btns">
-      <a href="https://open.kakao.com/o/sfMQWowi" class="btn-kakao" target="_blank">
-        <div class="kakao-badge">K</div> 카카오톡으로 문의하기
-      </a>
-      <a href="#form" class="btn-ghost">무료 체험 신청 →</a>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow"><span class="dot"></span>AI 리뷰 자동화 솔루션</div>
+      <h1>리뷰 요청,<br>이제 <span class="hl">QR 하나로.</span></h1>
+      <p class="hero-sub">고객이 QR을 찍으면 <strong>AI가 리뷰를 써드립니다.</strong><br>사장님은 아무것도 안 해도 됩니다.</p>
+      <div class="hero-badges">
+        <span class="hero-badge b1">AI 리뷰 자동화</span>
+        <span class="hero-badge b2">앱 설치 불필요</span>
+        <span class="hero-badge b3">설치 5분</span>
+      </div>
+      <div class="hero-btns">
+        <a href="https://open.kakao.com/o/sfMQWowi" class="btn-kakao" target="_blank">
+          <div class="kakao-ic">K</div>카카오톡으로 문의하기
+        </a>
+        <a href="#form" class="btn-ghost">무료 체험 신청 →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="n">14일</div><div class="l">무료 체험</div></div>
+        <div class="stat-item"><div class="n">5분</div><div class="l">설치 시간</div></div>
+        <div class="stat-item"><div class="n">0원</div><div class="l">초기 비용</div></div>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div class="stat-item"><div class="stat-num">14일</div><div class="stat-label">무료 체험</div></div>
-      <div class="stat-item"><div class="stat-num">5분</div><div class="stat-label">설치 시간</div></div>
-      <div class="stat-item"><div class="stat-num">0원</div><div class="stat-label">앱 설치 비용</div></div>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="phone-glow"></div>
-    <div class="phone-float">
-      <svg viewBox="0 0 260 520" width="260" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1" y="1" width="258" height="518" rx="44" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1.5"/>
-        <rect x="9" y="9" width="242" height="502" rx="36" fill="#0d1f3c"/>
-        <rect x="88" y="11" width="84" height="24" rx="12" fill="#111"/>
-        <rect x="9" y="33" width="242" height="60" fill="#0d1f3c"/>
-        <text x="130" y="70" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="white">AI가 리뷰를 써드립니다</text>
-        <rect x="9" y="93" width="242" height="418" fill="white"/>
-        <rect x="22" y="106" width="102" height="88" rx="14" fill="white" stroke="#eee" stroke-width="1"/>
-        <text x="73" y="146" text-anchor="middle" font-size="24">🍽️</text>
-        <text x="73" y="172" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#0d1f3c">음식점</text>
-        <rect x="136" y="106" width="102" height="88" rx="14" fill="white" stroke="#eee" stroke-width="1"/>
-        <text x="187" y="146" text-anchor="middle" font-size="24">☕</text>
-        <text x="187" y="172" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#0d1f3c">카페</text>
-        <rect x="22" y="202" width="102" height="88" rx="14" fill="white" stroke="#eee" stroke-width="1"/>
-        <text x="73" y="242" text-anchor="middle" font-size="24">✂️</text>
-        <text x="73" y="268" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#0d1f3c">미용실</text>
-        <rect x="136" y="202" width="102" height="88" rx="14" fill="white" stroke="#eee" stroke-width="1"/>
-        <text x="187" y="242" text-anchor="middle" font-size="24">💅</text>
-        <text x="187" y="268" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#0d1f3c">네일샵</text>
-        <rect x="22" y="298" width="102" height="88" rx="14" fill="white" stroke="#eee" stroke-width="1"/>
-        <text x="73" y="338" text-anchor="middle" font-size="24">📚</text>
-        <text x="73" y="364" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#0d1f3c">학원</text>
-        <rect x="136" y="298" width="102" height="88" rx="14" fill="white" stroke="#eee" stroke-width="1"/>
-        <text x="187" y="338" text-anchor="middle" font-size="24">✨</text>
-        <text x="187" y="364" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#0d1f3c">피부샵</text>
-        <rect x="22" y="404" width="216" height="46" rx="23" fill="#00d4aa"/>
-        <text x="130" y="433" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#000">내 업종 선택하기</text>
-      </svg>
+    <div class="hero-phone">
+      <div class="phone-wrap">
+        <svg viewBox="0 0 260 520" width="260" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="258" height="518" rx="44" fill="#111827" stroke="#1f2937" stroke-width="1.5"/>
+          <rect x="9" y="9" width="242" height="502" rx="36" fill="#0d1f3c"/>
+          <rect x="88" y="11" width="84" height="24" rx="12" fill="#0a0f1a"/>
+          <rect x="9" y="33" width="242" height="60" fill="#0d1f3c"/>
+          <text x="130" y="68" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="white">AI가 리뷰를 써드립니다</text>
+          <rect x="9" y="93" width="242" height="418" fill="white" rx="0"/>
+          <rect x="22" y="106" width="100" height="86" rx="14" fill="white" stroke="#eee" stroke-width="1"/><text x="72" y="144" text-anchor="middle" font-size="22">🍽️</text><text x="72" y="168" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#0d1f3c">음식점</text>
+          <rect x="138" y="106" width="100" height="86" rx="14" fill="white" stroke="#eee" stroke-width="1"/><text x="188" y="144" text-anchor="middle" font-size="22">☕</text><text x="188" y="168" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#0d1f3c">카페</text>
+          <rect x="22" y="200" width="100" height="86" rx="14" fill="white" stroke="#eee" stroke-width="1"/><text x="72" y="238" text-anchor="middle" font-size="22">✂️</text><text x="72" y="262" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#0d1f3c">미용실</text>
+          <rect x="138" y="200" width="100" height="86" rx="14" fill="white" stroke="#eee" stroke-width="1"/><text x="188" y="238" text-anchor="middle" font-size="22">💅</text><text x="188" y="262" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#0d1f3c">네일샵</text>
+          <rect x="22" y="294" width="100" height="86" rx="14" fill="white" stroke="#eee" stroke-width="1"/><text x="72" y="332" text-anchor="middle" font-size="22">📚</text><text x="72" y="356" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#0d1f3c">학원</text>
+          <rect x="138" y="294" width="100" height="86" rx="14" fill="white" stroke="#eee" stroke-width="1"/><text x="188" y="332" text-anchor="middle" font-size="22">✨</text><text x="188" y="356" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#0d1f3c">피부샵</text>
+          <rect x="22" y="400" width="216" height="44" rx="22" fill="#00d4aa"/>
+          <text x="130" y="428" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#000">내 업종 선택하기</text>
+        </svg>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- BADGES -->
-<div class="badges-wrap reveal">
-  <div class="badges-inner">
-    <span class="badges-label">전국 도입 중</span>
-    <div class="badges-row">
-      <span class="badge">음식점</span><span class="badge">카페</span><span class="badge">미용실</span>
-      <span class="badge">네일샵</span><span class="badge">학원</span><span class="badge">피부샵</span>
-      <span class="badge">병원</span><span class="badge">호텔</span>
+<div class="badges-strip reveal">
+  <div class="badges-strip-inner">
+    <span class="bs-label">전국 사업장 도입 중</span>
+    <div class="bs-row">
+      <span class="bs-badge">음식점</span><span class="bs-badge">카페</span><span class="bs-badge">미용실</span>
+      <span class="bs-badge">네일샵</span><span class="bs-badge">학원</span><span class="bs-badge">피부샵</span>
+      <span class="bs-badge">병원</span><span class="bs-badge">호텔</span>
     </div>
   </div>
 </div>
 
 <!-- PROBLEM -->
-<div class="problem-wrap">
+<div class="problem-bg section">
   <div class="section-inner">
-    <div class="eyebrow reveal">공감하시나요</div>
-    <h2 class="section-title reveal">리뷰 요청이<br>불편하셨죠.</h2>
-    <p class="section-sub reveal">사장님 잘못이 아닙니다. 구조가 불편했던 겁니다.</p>
+    <div class="s-label reveal">공감하시나요</div>
+    <h2 class="s-title reveal">리뷰 요청이<br><span class="hl">불편하셨죠.</span></h2>
+    <p class="s-desc reveal">사장님 잘못이 아닙니다. 구조가 불편했던 겁니다.</p>
     <div class="problem-grid">
       <div class="problem-card reveal d1">
-        <div class="problem-num">01</div>
-        <div class="problem-title">"리뷰 부탁드려요"<br>말 꺼내기가 민망하다</div>
-        <div class="problem-desc">단골 고객에게도 리뷰를 부탁하기가 어색하고 부담스럽습니다. 결국 요청을 못 하고 그냥 보내게 됩니다.</div>
+        <div class="pc-num">01</div>
+        <div class="pc-title">"리뷰 부탁드려요"<br>말 꺼내기가 민망하다</div>
+        <div class="pc-desc">단골 고객에게도 리뷰를 부탁하기가 어색하고 부담스럽습니다. 결국 요청을 못 하고 그냥 보내게 됩니다.</div>
       </div>
       <div class="problem-card reveal d2">
-        <div class="problem-num">02</div>
-        <div class="problem-title">요청해도<br>10명 중 1명만 작성</div>
-        <div class="problem-desc">직접 부탁해도 실제로 리뷰를 남기는 고객은 극소수입니다. 작성 과정이 번거롭기 때문입니다.</div>
+        <div class="pc-num">02</div>
+        <div class="pc-title">요청해도<br>10명 중 1명만 작성</div>
+        <div class="pc-desc">직접 부탁해도 실제로 리뷰를 남기는 고객은 극소수입니다. 작성 과정이 번거롭기 때문입니다.</div>
       </div>
       <div class="problem-card reveal d3">
-        <div class="problem-num">03</div>
-        <div class="problem-title">별점이 낮으면<br>신규 고객이 안 온다</div>
-        <div class="problem-desc">구글 별점은 신규 고객의 첫 판단 기준입니다. 리뷰가 적으면 경쟁 사업장에 고객을 빼앗깁니다.</div>
+        <div class="pc-num">03</div>
+        <div class="pc-title">별점이 낮으면<br>신규 고객이 안 온다</div>
+        <div class="pc-desc">구글 별점은 신규 고객의 첫 판단 기준입니다. 리뷰가 적으면 경쟁 사업장에 고객을 빼앗깁니다.</div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- HOW -->
-<div class="how-wrap">
+<div class="how-bg section">
   <div class="section-inner">
-    <div class="eyebrow reveal">작동 방식</div>
-    <h2 class="section-title reveal">단 3단계.</h2>
-    <p class="section-sub reveal">QR 코드 하나로 전체 과정이 완성됩니다.</p>
-    <div class="how-phones">
-      <div class="how-phone-item reveal d1">
-        <div class="step-badge">1</div>
+    <div class="s-label reveal">작동 방식</div>
+    <h2 class="s-title reveal">단 <span class="hl">3단계.</span></h2>
+    <p class="s-desc reveal">QR 코드 하나로 전체 과정이 완성됩니다. 앱 설치 없이 스마트폰으로 바로 사용합니다.</p>
+    <div class="how-grid">
+      <div class="how-item reveal d1">
+        <div class="how-step">1</div>
         <svg viewBox="0 0 220 440" xmlns="http://www.w3.org/2000/svg">
           <rect x="1" y="1" width="218" height="438" rx="36" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
           <rect x="8" y="8" width="204" height="424" rx="30" fill="white"/>
@@ -332,11 +394,11 @@ footer{background:#000;border-top:0.5px solid rgba(255,255,255,0.06);padding:48p
           <rect x="20" y="344" width="180" height="38" rx="19" fill="#00d4aa"/>
           <text x="110" y="368" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#000">내 업종 선택하기</text>
         </svg>
-        <div class="how-caption">업종 선택</div>
-        <div class="how-caption-sub">QR 스캔 후<br>업종 탭 하나</div>
+        <div class="how-cap">업종 선택</div>
+        <div class="how-cap-sub">QR 스캔 후 업종 탭 하나</div>
       </div>
-      <div class="how-phone-item reveal d2">
-        <div class="step-badge">2</div>
+      <div class="how-item reveal d2">
+        <div class="how-step">2</div>
         <svg viewBox="0 0 220 440" xmlns="http://www.w3.org/2000/svg">
           <rect x="1" y="1" width="218" height="438" rx="36" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
           <rect x="8" y="8" width="204" height="424" rx="30" fill="#f5f5f7"/>
@@ -347,9 +409,9 @@ footer{background:#000;border-top:0.5px solid rgba(255,255,255,0.06);padding:48p
           <rect x="20" y="92" width="72" height="26" rx="13" fill="#e8faf5" stroke="#00d4aa" stroke-width="1"/>
           <text x="56" y="110" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#0d1f3c">음식점 ✓</text>
           <rect x="16" y="128" width="188" height="130" rx="16" fill="white"/>
-          <text x="30" y="160" font-family="sans-serif" font-size="11" fill="#1d1d1f">음식이 정말 맛있었어요.</text>
-          <text x="30" y="180" font-family="sans-serif" font-size="11" fill="#1d1d1f">직원분들도 너무 친절하시고</text>
-          <text x="30" y="200" font-family="sans-serif" font-size="11" fill="#1d1d1f">또 방문하고 싶은 곳입니다.</text>
+          <text x="30" y="158" font-family="sans-serif" font-size="11" fill="#1d1d1f">음식이 정말 맛있었어요.</text>
+          <text x="30" y="178" font-family="sans-serif" font-size="11" fill="#1d1d1f">직원분들도 너무 친절하시고</text>
+          <text x="30" y="198" font-family="sans-serif" font-size="11" fill="#1d1d1f">또 방문하고 싶은 곳입니다.</text>
           <rect x="30" y="232" width="160" height="3" rx="2" fill="#e5e5e5"/>
           <rect x="30" y="232" width="160" height="3" rx="2" fill="#00d4aa"/>
           <text x="190" y="230" text-anchor="end" font-family="sans-serif" font-size="9" fill="#00d4aa">100%</text>
@@ -358,11 +420,11 @@ footer{background:#000;border-top:0.5px solid rgba(255,255,255,0.06);padding:48p
           <rect x="110" y="278" width="94" height="36" rx="18" fill="#00d4aa"/>
           <text x="157" y="301" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#000">문구 사용하기</text>
         </svg>
-        <div class="how-caption">AI 리뷰 생성</div>
-        <div class="how-caption-sub">1초 만에<br>자동 완성</div>
+        <div class="how-cap">AI 리뷰 생성</div>
+        <div class="how-cap-sub">1초 만에 자동 완성</div>
       </div>
-      <div class="how-phone-item reveal d3">
-        <div class="step-badge">3</div>
+      <div class="how-item reveal d3">
+        <div class="how-step">3</div>
         <svg viewBox="0 0 220 440" xmlns="http://www.w3.org/2000/svg">
           <rect x="1" y="1" width="218" height="438" rx="36" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
           <rect x="8" y="8" width="204" height="424" rx="30" fill="#f5f5f7"/>
@@ -376,81 +438,155 @@ footer{background:#000;border-top:0.5px solid rgba(255,255,255,0.06);padding:48p
           <text x="115" y="319" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#1d1d1f">구글 리뷰 작성하기 →</text>
           <text x="110" y="368" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#aeaeb2">리뷰 작성 후 이 창을 닫아주세요</text>
         </svg>
-        <div class="how-caption">구글에 게시</div>
-        <div class="how-caption-sub">클립보드 복사<br>→ 붙여넣기</div>
+        <div class="how-cap">구글에 게시</div>
+        <div class="how-cap-sub">클립보드 복사 → 붙여넣기</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- FEATURES -->
-<div class="features-wrap">
+<!-- REVIEW WIDGET -->
+<div class="review-bg section" id="demo">
   <div class="section-inner">
-    <div class="eyebrow reveal">주요 기능</div>
-    <h2 class="section-title reveal">고객 입장에서<br>가장 쉬운 경험.</h2>
-    <div class="features-grid">
-      <div class="feature-card reveal d1">
-        <div class="feature-icon">📱</div>
-        <div class="feature-title">앱 설치 불필요</div>
-        <div class="feature-desc">QR 코드만 스캔하면 됩니다. 고객이 별도 앱을 설치할 필요가 없어 진입 장벽이 없습니다.</div>
+    <div class="s-label reveal">직접 체험하기</div>
+    <h2 class="s-title reveal">고객이 보는 화면,<br><span class="hl">지금 바로 체험하세요.</span></h2>
+    <p class="s-desc reveal">실제 서비스와 동일한 화면입니다. 업종과 경험을 선택하면 AI가 리뷰를 자동 생성합니다.</p>
+    <div class="review-layout">
+      <div class="rw-shell reveal">
+        <div class="rw-header">
+          <div class="rw-header-icon">⭐</div>
+          <div>
+            <div class="rw-header-title">AI 리뷰 자동 생성기</div>
+            <div class="rw-header-sub">AI REVIEW ASSISTANT · POWERED BY HANBEON</div>
+          </div>
+        </div>
+        <div class="rw-body">
+          <div class="rw-block">
+            <div class="rw-label">① 작성방식</div>
+            <div class="rw-title">리뷰를 어떻게 작성할까요?</div>
+            <div class="rw-opt-row">
+              <button class="rw-opt selected" data-write="ai" onclick="setWrite(this)">
+                <span class="rw-opt-main">AI 문구 생성</span>
+                <span class="rw-opt-sub">선택값 기반 자동 작성</span>
+              </button>
+              <button class="rw-opt" data-write="manual" onclick="setWrite(this)">
+                <span class="rw-opt-main">직접 입력</span>
+                <span class="rw-opt-sub">내가 직접 작성</span>
+              </button>
+            </div>
+          </div>
+          <div id="aiOptions">
+            <div class="rw-divider"></div>
+            <div class="rw-block">
+              <div class="rw-label">② 업종 선택</div>
+              <div class="rw-title">어떤 업종의 사업장인가요?</div>
+              <div class="rw-treat-grid">
+                <button class="rw-treat" data-treat="음식점" onclick="setTreat(this)"><span>🍽️</span>음식점</button>
+                <button class="rw-treat" data-treat="카페" onclick="setTreat(this)"><span>☕</span>카페</button>
+                <button class="rw-treat" data-treat="미용실" onclick="setTreat(this)"><span>✂️</span>미용실</button>
+                <button class="rw-treat" data-treat="네일샵" onclick="setTreat(this)"><span>💅</span>네일샵</button>
+                <button class="rw-treat" data-treat="학원" onclick="setTreat(this)"><span>📚</span>학원</button>
+                <button class="rw-treat" data-treat="피부샵" onclick="setTreat(this)"><span>✨</span>피부샵</button>
+              </div>
+            </div>
+            <div class="rw-divider"></div>
+            <div class="rw-block">
+              <div class="rw-label">③ 좋았던 점</div>
+              <div class="rw-title">어떤 점이 좋으셨나요?</div>
+              <div class="rw-kw-grid">
+                <button class="rw-kw" data-kw="친절한 응대" onclick="setKw(this)"><span>💬</span>친절한 응대</button>
+                <button class="rw-kw" data-kw="청결·위생" onclick="setKw(this)"><span>🧹</span>청결·위생</button>
+                <button class="rw-kw" data-kw="합리적 가격" onclick="setKw(this)"><span>💰</span>합리적 가격</button>
+                <button class="rw-kw" data-kw="전문적인 실력" onclick="setKw(this)"><span>⭐</span>전문적인 실력</button>
+                <button class="rw-kw" data-kw="쾌적한 환경" onclick="setKw(this)"><span>🏠</span>쾌적한 환경</button>
+                <button class="rw-kw" data-kw="재방문 의향" onclick="setKw(this)"><span>😊</span>재방문 의향</button>
+              </div>
+            </div>
+          </div>
+          <div class="rw-divider"></div>
+          <div class="rw-result-wrap">
+            <div class="rw-stars">★★★★★</div>
+            <div class="rw-loading" id="rwLoading">
+              <div class="rw-dots"><div></div><div></div><div></div></div>
+              <span>AI가 리뷰 문구를 생성 중입니다...</span>
+            </div>
+            <div class="rw-ai-badge" id="rwBadge" style="display:none">AI 참고 문구</div>
+            <textarea id="rwText" class="rw-textarea" placeholder="업종과 좋았던 점을 선택하면 AI가 리뷰 문구를 자동 생성합니다." rows="4"></textarea>
+          </div>
+          <button class="rw-copy-btn" onclick="copyReview()">문구 복사하기</button>
+          <div class="rw-copy-guide" id="rwCopyGuide">✅ 문구가 복사됐어요. 리뷰창에 길게 눌러 붙여넣기 해주세요</div>
+          <a href="#" class="rw-google-btn" id="rwGoogleBtn" target="_blank" rel="noopener">
+            <i class="fab fa-google"></i> 구글 리뷰 페이지로 이동하기
+          </a>
+          <div class="rw-notice">생성된 문구는 참고용입니다. 실제 경험에 맞게 자유롭게 수정한 뒤 등록해 주세요.</div>
+        </div>
       </div>
-      <div class="feature-card reveal d2">
-        <div class="feature-icon">🤖</div>
-        <div class="feature-title">AI 자동 문구 생성</div>
-        <div class="feature-desc">업종과 경험을 선택하면 AI가 자연스러운 리뷰 문구를 즉시 생성합니다. 고객은 복사만 하면 됩니다.</div>
-      </div>
-      <div class="feature-card reveal d3">
-        <div class="feature-icon">⭐</div>
-        <div class="feature-title">구글 리뷰 직연결</div>
-        <div class="feature-desc">문구 복사 후 버튼 하나로 구글 리뷰 페이지로 바로 이동합니다. 단계를 최소화해 완료율을 높입니다.</div>
-      </div>
-      <div class="feature-card reveal d1">
-        <div class="feature-icon">🏪</div>
-        <div class="feature-title">모든 업종 지원</div>
-        <div class="feature-desc">음식점, 카페, 미용실, 네일샵, 학원, 피부샵, 병원, 호텔 등 구글 리뷰가 필요한 모든 사업장에 적용 가능합니다.</div>
-      </div>
-      <div class="feature-card reveal d2">
-        <div class="feature-icon">⚡</div>
-        <div class="feature-title">설치 5분</div>
-        <div class="feature-desc">QR 코드를 출력해서 카운터에 놓으면 끝입니다. 복잡한 기술 설정 없이 당일 바로 시작할 수 있습니다.</div>
-      </div>
-      <div class="feature-card reveal d3">
-        <div class="feature-icon">🌍</div>
-        <div class="feature-title">해외 사업장 지원</div>
-        <div class="feature-desc">글로벌 사업장도 사용 가능합니다. 다국어 지원으로 외국인 고객의 리뷰 작성도 쉽게 유도할 수 있습니다.</div>
+      <div>
+        <div class="review-features">
+          <div class="rf-item reveal d1">
+            <div class="rf-icon y">🌍</div>
+            <div>
+              <div class="rf-title">모든 업종 지원</div>
+              <div class="rf-desc">음식점·카페·미용실·네일샵·학원·피부샵·병원·호텔 등 구글 리뷰가 필요한 모든 사업장에 적용 가능합니다.</div>
+              <div class="rf-tags"><span class="rf-tag">음식점</span><span class="rf-tag">미용실</span><span class="rf-tag">학원</span><span class="rf-tag">+더보기</span></div>
+            </div>
+          </div>
+          <div class="rf-item reveal d2">
+            <div class="rf-icon b">🤖</div>
+            <div>
+              <div class="rf-title">AI 자동 문구 생성</div>
+              <div class="rf-desc">업종과 경험을 선택하면 AI가 자연스러운 리뷰 문구를 즉시 생성합니다. 복사 한 번으로 구글 리뷰에 바로 붙여넣기.</div>
+              <div class="rf-tags"><span class="rf-tag">자동 생성</span><span class="rf-tag">직접 수정 가능</span></div>
+            </div>
+          </div>
+          <div class="rf-item reveal d3">
+            <div class="rf-icon g">⭐</div>
+            <div>
+              <div class="rf-title">구글 리뷰 직연결</div>
+              <div class="rf-desc">문구 복사 후 버튼 하나로 구글 리뷰 페이지로 바로 이동. QR 코드 하나로 스마트폰에서 즉시 접근.</div>
+              <div class="rf-tags"><span class="rf-tag">원터치 이동</span><span class="rf-tag">QR 연동</span></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- NUMBERS -->
-<div class="numbers-wrap reveal">
-  <div class="numbers-inner">
-    <div class="number-item">
-      <div class="num">3<span class="unit">배</span></div>
-      <div class="label">리뷰 작성률 향상 기대</div>
-    </div>
-    <div class="number-item">
-      <div class="num">30<span class="unit">초</span></div>
-      <div class="label">고객 리뷰 완성 소요 시간</div>
-    </div>
-    <div class="number-item">
-      <div class="num">5<span class="unit">분</span></div>
-      <div class="label">사업장 설치 시간</div>
+<!-- STATS -->
+<div class="stats-bg reveal">
+  <div class="stats-inner">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="sn">3<span style="font-size:28px">배</span></div>
+        <div class="sl">리뷰 작성률 향상 기대</div>
+        <div class="ss">AI 자동 생성으로 복잡한<br>리뷰 작성 허들 대폭 감소</div>
+      </div>
+      <div class="stat-card">
+        <div class="sn">30<span style="font-size:28px">초</span></div>
+        <div class="sl">고객 리뷰 완성 소요 시간</div>
+        <div class="ss">QR 스캔부터 구글 게시까지<br>30초면 충분합니다</div>
+      </div>
+      <div class="stat-card">
+        <div class="sn">5<span style="font-size:28px">분</span></div>
+        <div class="sl">사업장 설치 시간</div>
+        <div class="ss">QR 출력 후 카운터에 놓으면<br>즉시 사용 가능합니다</div>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- PROOF -->
-<div class="proof-wrap">
+<div class="proof-bg section">
   <div class="section-inner">
-    <div class="eyebrow reveal">실제 사례</div>
-    <h2 class="section-title reveal">사장님들의 이야기.</h2>
+    <div class="s-label reveal">실제 사례</div>
+    <h2 class="s-title reveal">사장님들의 이야기.</h2>
+    <p class="s-desc reveal">전국 사업장에서 실제로 겪은 변화입니다.</p>
     <div class="proof-grid">
       <div class="proof-card reveal d1">
         <div class="proof-stars">★★★★★</div>
         <div class="proof-metric">+1,467%</div>
-        <div class="proof-metric-label">월간 구글 리뷰 증가</div>
+        <div class="proof-metric-lbl">월간 구글 리뷰 증가</div>
         <div class="proof-divider"></div>
         <div class="proof-text">"매달 리뷰가 3개였는데 지금은 47개예요. QR 붙여두니까 손님들이 알아서 남기더라고요."</div>
         <div class="proof-author">— 서울 음식점 사장님</div>
@@ -458,7 +594,7 @@ footer{background:#000;border-top:0.5px solid rgba(255,255,255,0.06);padding:48p
       <div class="proof-card reveal d2">
         <div class="proof-stars">★★★★★</div>
         <div class="proof-metric">+32%</div>
-        <div class="proof-metric-label">신규 방문 고객 증가</div>
+        <div class="proof-metric-lbl">신규 방문 고객 증가</div>
         <div class="proof-divider"></div>
         <div class="proof-text">"신규 손님이 '리뷰 보고 왔어요'라고 하는 게 부쩍 늘었어요. 별점도 4.2에서 4.8로 올랐고요."</div>
         <div class="proof-author">— 경기 미용실 원장님</div>
@@ -466,7 +602,7 @@ footer{background:#000;border-top:0.5px solid rgba(255,255,255,0.06);padding:48p
       <div class="proof-card reveal d3">
         <div class="proof-stars">★★★★★</div>
         <div class="proof-metric">4.8★</div>
-        <div class="proof-metric-label">평균 구글 별점</div>
+        <div class="proof-metric-lbl">평균 구글 별점</div>
         <div class="proof-divider"></div>
         <div class="proof-text">"학부모님들이 먼저 리뷰를 써주세요. 원장이 직접 부탁하는 것보다 훨씬 자연스럽고 편해요."</div>
         <div class="proof-author">— 부산 학원 원장님</div>
@@ -476,10 +612,10 @@ footer{background:#000;border-top:0.5px solid rgba(255,255,255,0.06);padding:48p
 </div>
 
 <!-- PRICING -->
-<div class="pricing-wrap">
-  <div class="section-inner">
-    <div class="eyebrow reveal">간단한 가격</div>
-    <h2 class="section-title reveal">14일 무료.<br>그 다음은 월 29,000원.</h2>
+<div class="pricing-bg section">
+  <div class="section-inner" style="text-align:center">
+    <div class="s-label reveal" style="justify-content:center">간단한 가격</div>
+    <h2 class="s-title reveal">14일 무료.<br>그 다음은 <span class="hl">월 29,000원.</span></h2>
     <div class="pricing-grid">
       <div class="pricing-card reveal">
         <div class="p-badge">무료 체험</div>
@@ -487,24 +623,24 @@ footer{background:#000;border-top:0.5px solid rgba(255,255,255,0.06);padding:48p
         <div class="p-price">₩0</div>
         <div class="p-period">14일 동안 모든 기능 무료</div>
         <ul class="p-features">
-          <li><div class="p-check">✓</div> AI 리뷰 생성 무제한</li>
-          <li><div class="p-check">✓</div> QR 코드 즉시 제공</li>
-          <li><div class="p-check">✓</div> 설치 5분 이내</li>
-          <li><div class="p-check">✓</div> 카카오톡 1:1 지원</li>
+          <li><div class="p-check">✓</div>AI 리뷰 생성 무제한</li>
+          <li><div class="p-check">✓</div>QR 코드 즉시 제공</li>
+          <li><div class="p-check">✓</div>설치 5분 이내</li>
+          <li><div class="p-check">✓</div>카카오톡 1:1 지원</li>
         </ul>
-        <a href="https://open.kakao.com/o/sfMQWowi" class="p-btn p-btn-outline" target="_blank">카카오톡으로 시작하기</a>
+        <a href="https://open.kakao.com/o/sfMQWowi" class="p-btn p-btn-out" target="_blank">카카오톡으로 시작하기</a>
       </div>
-      <div class="pricing-card featured reveal d1">
+      <div class="pricing-card feat reveal d1">
         <div class="p-badge">정식 구독</div>
         <div class="p-name">스탠다드</div>
         <div class="p-price">₩29,000<span>/월</span></div>
         <div class="p-period">월간 구독 · 언제든 해지 가능</div>
         <ul class="p-features">
-          <li><div class="p-check">✓</div> AI 리뷰 생성 무제한</li>
-          <li><div class="p-check">✓</div> 업종별 QR 코드 제공</li>
-          <li><div class="p-check">✓</div> 리뷰 통계 대시보드</li>
-          <li><div class="p-check">✓</div> 전담 카카오톡 지원</li>
-          <li><div class="p-check">✓</div> 업종 추가 무제한</li>
+          <li><div class="p-check">✓</div>AI 리뷰 생성 무제한</li>
+          <li><div class="p-check">✓</div>업종별 QR 코드 제공</li>
+          <li><div class="p-check">✓</div>리뷰 통계 대시보드</li>
+          <li><div class="p-check">✓</div>전담 카카오톡 지원</li>
+          <li><div class="p-check">✓</div>업종 추가 무제한</li>
         </ul>
         <a href="https://open.kakao.com/o/sfMQWowi" class="p-btn p-btn-dark" target="_blank">지금 시작하기</a>
       </div>
@@ -513,52 +649,52 @@ footer{background:#000;border-top:0.5px solid rgba(255,255,255,0.06);padding:48p
 </div>
 
 <!-- CTA -->
-<div class="cta-wrap">
+<div class="cta-bg">
+  <div class="cta-orb"></div>
   <h2 class="cta-title reveal">리뷰가 쌓이면<br>매출이 따라옵니다.</h2>
   <p class="cta-sub reveal">지금 카카오톡으로 문의하시면 당일 세팅해드립니다.</p>
   <div class="cta-btns reveal">
     <a href="https://open.kakao.com/o/sfMQWowi" class="btn-kakao-xl" target="_blank">
-      <div class="kakao-badge-xl">K</div>
-      카카오톡으로 문의하기
+      <div class="kakao-ic-xl">K</div>카카오톡으로 문의하기
     </a>
   </div>
-  <p class="cta-note reveal">평균 응답시간 10분 이내 · 14일 무료 체험</p>
+  <p class="cta-note reveal">평균 응답시간 10분 이내 · 14일 무료 체험 · 당일 세팅</p>
 </div>
 
 <!-- FORM -->
-<div class="form-wrap" id="form">
+<div class="form-bg" id="form">
   <div class="form-inner">
-    <div class="eyebrow reveal" style="justify-content:center">시작하기</div>
-    <h2 class="section-title reveal" style="text-align:center">지금 바로.</h2>
-    <p style="font-size:15px;color:#555;margin-bottom:0;text-align:center" class="reveal">신청하시면 24시간 내 카카오톡으로 연락드립니다.</p>
+    <div class="s-label reveal" style="justify-content:center">시작하기</div>
+    <h2 class="s-title reveal" style="text-align:center">지금 바로.</h2>
+    <p style="font-size:15px;color:var(--text-dim);text-align:center" class="reveal">신청하시면 24시간 내 카카오톡으로 연락드립니다.</p>
     <div class="form-card reveal">
-      <div id="form-content">
-        <div class="f-group"><label class="f-label">이름</label><input type="text" id="f-name" class="f-input" placeholder="홍길동"></div>
-        <div class="f-group"><label class="f-label">사업장명</label><input type="text" id="f-biz" class="f-input" placeholder="○○카페"></div>
+      <div id="formContent">
+        <div class="f-group"><label class="f-label">이름</label><input type="text" id="fName" class="f-input" placeholder="홍길동"></div>
+        <div class="f-group"><label class="f-label">사업장명</label><input type="text" id="fBiz" class="f-input" placeholder="○○카페"></div>
         <div class="f-group">
           <label class="f-label">업종</label>
-          <select id="f-type" class="f-select">
+          <select id="fType" class="f-select">
             <option value="">선택해주세요</option>
             <option>음식점</option><option>카페</option><option>미용실</option>
             <option>네일샵</option><option>학원</option><option>피부샵</option>
             <option>병원</option><option>호텔</option><option>기타</option>
           </select>
         </div>
-        <div class="f-group"><label class="f-label">연락처</label><input type="tel" id="f-tel" class="f-input" placeholder="010-0000-0000"></div>
-        <div class="f-group"><label class="f-label">이메일</label><input type="email" id="f-email" class="f-input" placeholder="example@email.com"></div>
+        <div class="f-group"><label class="f-label">연락처</label><input type="tel" id="fTel" class="f-input" placeholder="010-0000-0000"></div>
+        <div class="f-group"><label class="f-label">이메일</label><input type="email" id="fEmail" class="f-input" placeholder="example@email.com"></div>
         <button class="f-submit" onclick="submitForm()">무료 체험 신청하기</button>
       </div>
-      <div class="form-success" id="form-success">
-        <div class="success-icon">✅</div>
-        <div class="success-title">신청이 완료되었습니다!</div>
-        <div class="success-sub">24시간 내 카카오톡으로 연락드리겠습니다.<br>감사합니다 😊</div>
+      <div class="form-success" id="formSuccess">
+        <div class="si">✅</div>
+        <div class="st">신청이 완료되었습니다!</div>
+        <div class="ss">24시간 내 카카오톡으로 연락드리겠습니다.<br>감사합니다 😊</div>
       </div>
     </div>
   </div>
 </div>
 
 <footer>
-  <div class="footer-logo">AI <span>리뷰</span> 등록기</div>
+  <div class="footer-logo">AI <em>리뷰</em> 등록기</div>
   <div class="footer-links">
     <a href="mailto:tims230801@gmail.com">tims230801@gmail.com</a>
     <a href="https://open.kakao.com/o/sfMQWowi" target="_blank">카카오톡 문의</a>
@@ -568,18 +704,81 @@ footer{background:#000;border-top:0.5px solid rgba(255,255,255,0.06);padding:48p
 
 <script>
 const WEBHOOK_URL='YOUR_WEBHOOK_URL_HERE';
+const GOOGLE_REVIEW_URL='https://search.google.com/local/writereview?placeid=ChIJKxPfhdY0YzURE6Ft9bwFJj4';
 
-const observer=new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
-},{threshold:0,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+// Reveal
+const obs=new IntersectionObserver(e=>e.forEach(i=>{if(i.isIntersecting)i.target.classList.add('visible')}),{threshold:0,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
+// Review Widget
+let writeMode='ai', treatSel='', kwSel='';
+
+function setWrite(btn){
+  document.querySelectorAll('[data-write]').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  writeMode=btn.dataset.write;
+  document.getElementById('aiOptions').style.display=writeMode==='ai'?'block':'none';
+}
+
+function setTreat(btn){
+  document.querySelectorAll('.rw-treat').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  treatSel=btn.dataset.treat;
+  autoGenerate();
+}
+
+function setKw(btn){
+  document.querySelectorAll('.rw-kw').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  kwSel=btn.dataset.kw;
+  autoGenerate();
+}
+
+function autoGenerate(){
+  if(!treatSel)return;
+  const loading=document.getElementById('rwLoading');
+  const badge=document.getElementById('rwBadge');
+  const text=document.getElementById('rwText');
+  loading.style.display='flex';
+  badge.style.display='none';
+  text.value='';
+  setTimeout(()=>{
+    const reviews={
+      '음식점':{'친절한 응대':'음식이 정말 맛있었어요. 직원분들도 너무 친절하시고 분위기도 좋아서 즐거운 식사 시간이었습니다. 또 방문하고 싶은 곳이에요!','청결·위생':'깔끔하고 위생적인 환경에서 맛있는 음식을 즐길 수 있었어요. 믿고 방문할 수 있는 식당입니다.','합리적 가격':'맛도 훌륭하고 가격도 합리적이에요. 이 가격에 이런 퀄리티라니 정말 만족스럽습니다.','전문적인 실력':'음식 하나하나에 정성이 느껴졌어요. 요리 실력이 정말 뛰어난 곳입니다.','쾌적한 환경':'인테리어도 예쁘고 분위기가 정말 좋아요. 특별한 날 방문하기 딱 좋은 곳입니다.','재방문 의향':'너무 좋아서 이미 다음 방문 날짜를 잡았어요. 주변 지인들에게도 적극 추천합니다!','':'음식도 맛있고 서비스도 훌륭해요. 정말 만족스러운 식사였습니다. 강력 추천해요!'},
+      '카페':{'친절한 응대':'커피도 맛있고 직원분들이 너무 친절하셔서 기분 좋게 시간을 보낼 수 있었어요.','청결·위생':'매장이 항상 깨끗하게 관리되어 있어서 믿고 방문할 수 있는 카페입니다.','합리적 가격':'음료 퀄리티에 비해 가격이 정말 합리적이에요. 자주 오게 되는 카페입니다.','전문적인 실력':'바리스타 분들의 실력이 정말 뛰어나요. 커피 한 잔에서 전문성이 느껴집니다.','쾌적한 환경':'인테리어도 예쁘고 좌석도 편안해서 오래 머물기 좋은 카페예요.','재방문 의향':'단골이 될 것 같아요! 이미 여러 번 방문했는데 올 때마다 만족스럽습니다.','':'분위기도 좋고 커피도 맛있어요. 힐링이 필요할 때 찾게 되는 카페입니다.'},
+      '미용실':{'친절한 응대':'디자이너 분이 원하는 스타일을 정확하게 파악하고 친절하게 상담해주셔서 만족스러웠어요.','청결·위생':'매장이 항상 깔끔하게 관리되어 있어서 믿고 이용할 수 있는 미용실이에요.','합리적 가격':'실력 대비 가격이 정말 합리적이에요. 이 가격에 이런 퀄리티는 정말 드물어요.','전문적인 실력':'기술이 정말 뛰어나세요. 원하는 스타일로 완벽하게 해주셔서 너무 만족스러워요.','쾌적한 환경':'깔끔하고 아늑한 분위기에서 편안하게 시간을 보낼 수 있었어요.','재방문 의향':'단골 미용실이 생겼어요! 앞으로 여기서만 할 것 같아요. 강력 추천합니다!','':'실력도 뛰어나고 서비스도 훌륭해요. 만족스러운 변신을 경험할 수 있었습니다.'},
+      '네일샵':{'친절한 응대':'원하는 디자인을 세심하게 반영해주시고 친절하게 대해주셔서 너무 좋았어요.','청결·위생':'위생 관리가 철저해서 안심하고 받을 수 있었어요. 믿을 수 있는 네일샵입니다.','합리적 가격':'퀄리티에 비해 가격이 정말 합리적이에요. 이 가격에 이런 완성도라니 놀랍습니다.','전문적인 실력':'기술이 정말 뛰어나세요. 복잡한 디자인도 완벽하게 구현해주셔서 감동받았어요.','쾌적한 환경':'매장 분위기가 아늑하고 편안해서 시술 받는 내내 기분이 좋았어요.','재방문 의향':'이미 다음 예약 잡았어요! 네일할 때마다 여기서 할 것 같습니다.','':'섬세한 기술력과 친절한 서비스로 완벽한 네일을 받았어요. 강력 추천합니다!'},
+      '학원':{'친절한 응대':'선생님들이 정말 친절하고 학생 한 명 한 명에게 세심하게 신경 써주세요.','청결·위생':'학습 환경이 항상 청결하게 유지되어 있어서 쾌적하게 공부할 수 있어요.','합리적 가격':'수업 퀄리티에 비해 수강료가 정말 합리적이에요. 만족도 대비 비용이 훌륭합니다.','전문적인 실력':'선생님들의 전문성이 정말 뛰어나요. 체계적인 커리큘럼 덕분에 실력이 빠르게 늘었어요.','쾌적한 환경':'학습 공간이 넓고 쾌적해서 집중하기 너무 좋아요.','재방문 의향':'재등록했어요! 성과가 눈에 보여서 계속 다닐 예정입니다. 강력 추천해요!','':'체계적인 교육과 열정적인 선생님 덕분에 실력이 많이 늘었어요. 추천합니다!'},
+      '피부샵':{'친절한 응대':'상담부터 시술까지 정말 친절하게 케어해주셔서 기분 좋게 받을 수 있었어요.','청결·위생':'위생 관리가 철저해서 안심하고 피부 관리를 받을 수 있었습니다.','합리적 가격':'관리 퀄리티에 비해 가격이 정말 합리적이에요. 효과 대비 가성비가 훌륭합니다.','전문적인 실력':'피부 고민을 정확하게 파악하고 맞춤 케어를 해주셔서 효과가 정말 좋았어요.','쾌적한 환경':'관리 공간이 깨끗하고 편안해서 시술 받는 내내 힐링이 됐어요.','재방문 의향':'피부가 좋아져서 계속 다니게 될 것 같아요. 강력 추천드립니다!','':'전문적인 케어로 피부가 훨씬 좋아졌어요. 믿고 맡길 수 있는 피부샵입니다.'}
+    };
+    const t=reviews[treatSel]||reviews['음식점'];
+    const result=t[kwSel]||t[''];
+    loading.style.display='none';
+    badge.style.display='inline-block';
+    text.value=result;
+    document.getElementById('rwGoogleBtn').href=GOOGLE_REVIEW_URL;
+  },1200);
+}
+
+function copyReview(){
+  const text=document.getElementById('rwText').value;
+  if(!text)return;
+  navigator.clipboard.writeText(text).then(()=>{
+    const guide=document.getElementById('rwCopyGuide');
+    guide.style.display='block';
+    setTimeout(()=>guide.style.display='none',3000);
+    // META: fbq('track','Lead');
+    // GOOGLE: gtag('event','conversion');
+  });
+}
+
+// Form
 function submitForm(){
-  const n=document.getElementById('f-name');
-  const b=document.getElementById('f-biz');
-  const t=document.getElementById('f-type');
-  const p=document.getElementById('f-tel');
-  const e=document.getElementById('f-email');
+  const n=document.getElementById('fName');
+  const b=document.getElementById('fBiz');
+  const t=document.getElementById('fType');
+  const p=document.getElementById('fTel');
+  const e=document.getElementById('fEmail');
   let ok=true;
   [n,b,t,p,e].forEach(el=>el.classList.remove('error'));
   if(!n.value.trim()){n.classList.add('error');ok=false}
@@ -589,10 +788,10 @@ function submitForm(){
   if(!e.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){e.classList.add('error');ok=false}
   if(!ok)return;
   fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({이름:n.value,사업장명:b.value,업종:t.value,연락처:p.value,이메일:e.value,신청일시:new Date().toLocaleString('ko-KR')})}).catch(()=>{});
-  fbq('track', 'Lead');
+  // META: fbq('track','Lead');
   // GOOGLE: gtag('event','conversion');
-  document.getElementById('form-content').style.display='none';
-  document.getElementById('form-success').style.display='block';
+  document.getElementById('formContent').style.display='none';
+  document.getElementById('formSuccess').style.display='block';
 }
 </script>
 </body>
