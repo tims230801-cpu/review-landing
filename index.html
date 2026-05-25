@@ -787,7 +787,7 @@ function submitForm(){
   if(!p.value.trim()){p.classList.add('error');ok=false}
   if(!e.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){e.classList.add('error');ok=false}
   if(!ok)return;
-  const params=new URLSearchParams({이름:n.value,사업장명:b.value,업종:t.value,연락처:p.value,이메일:e.value});fetch(WEBHOOK_URL+'?'+params.toString()).catch(()=>{});
+  fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({이름:n.value,사업장명:b.value,업종:t.value,연락처:p.value,이메일:e.value})}).catch(()=>{});
   // META: fbq('track','Lead');
   // GOOGLE: gtag('event','conversion');
   document.getElementById('formContent').style.display='none';
